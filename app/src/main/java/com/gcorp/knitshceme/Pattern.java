@@ -72,11 +72,10 @@ public class Pattern {
         return pattern;
     }
 
+    //Изменяем схему рисунка
     public void changePattern(int x, int y, Pallet.cell c) {
         pattern[x][y] = c;
     }
 
-    public void patternPrinter(Pattern patt) {
-        //for (int i)
-    }
+
 }

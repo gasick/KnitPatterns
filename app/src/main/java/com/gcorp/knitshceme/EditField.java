@@ -22,6 +22,7 @@ public class EditField extends AppCompatActivity {
         setContentView(new DrawView(this, rows, columns));
     }
 
+    //Метод слушающий нажатие. 
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();

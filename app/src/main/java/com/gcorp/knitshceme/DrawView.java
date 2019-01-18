@@ -52,6 +52,7 @@ public class DrawView extends View {
         }
 
         //рисуем схему на канве
+        //иходник находится в  pattern
         for (int i = 0; i < xrows; i++) {
             for (int j = 0; j < ycolumns; j++) {
                 if (patt[i][j]!= Pallet.cell.empty) {
