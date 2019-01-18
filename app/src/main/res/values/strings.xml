@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Художественное рисование схем</string>
+    <string name="numberOfRows">Количество рядов</string>
+    <string name="numberOfColumns">Количество петель</string>
+    <string name="patternCreateButton">Создать схему</string>
+    <string name="patternOpenButton">Открыть схему</string>
+    <string-array name="knitOrCrochetChooser">
+        <item>Спицами</item>
+        <item>Крючком</item>
+    </string-array>
+</resources>
