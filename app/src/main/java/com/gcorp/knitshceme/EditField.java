@@ -12,7 +12,6 @@ public class EditField extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_field);
 
-
         Intent intent = getIntent();
 
         int rows = Integer.parseInt(intent.getStringExtra("rows"));

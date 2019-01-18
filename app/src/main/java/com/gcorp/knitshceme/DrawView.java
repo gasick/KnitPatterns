@@ -2,6 +2,7 @@ package com.gcorp.knitshceme;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -55,9 +56,12 @@ public class DrawView extends View {
         p.setColor(Color.BLACK);
         canvas.drawPath(path,p);
     }
-    public void printBatmon(Pattern.cell c)
+    //Рисуем петлю в попределенном месте
+    public void printKnit(int x, int y, Pallet.cell c, Canvas canvas)
     {
-        Bitmap mBitmap;
-        
+        //Получаем от getRDrawablePNG что за рисунок рисуем его
+        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));
+        canvas.drawBitmap(mBitmap,x, y, null);
+
     }
 }
