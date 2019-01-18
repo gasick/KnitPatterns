@@ -13,8 +13,9 @@ public class DrawView extends View {
 
     Paint p;
     Path path;
-    int x;
-    int y;
+    int xrows;
+    int ycolumns;
+    Pattern pattern;
 
     public DrawView(Context context, int rows, int columns){
         super(context);
@@ -22,42 +23,50 @@ public class DrawView extends View {
         p.setStrokeWidth(3);
         p.setStyle(Paint.Style.STROKE);
         path=new Path();
-        x = rows;
-        y = columns;
+        xrows = rows;
+        ycolumns = columns;
+        pattern = new Pattern(xrows, ycolumns);
+
 
 
 
     }
     @Override
-    protected void onDraw(Canvas canvas){
-        canvas.drawARGB(80,255,255,255);
+    protected void onDraw(Canvas canvas) {
+        canvas.drawARGB(80, 255, 255, 255);
 
-        int height=canvas.getHeight();
-        int width=canvas.getWidth();
-
+        Pallet.cell[][] patt = pattern.getPattern();
         //очистка path
         path.reset();
 
-        for(int j=0;j<x*50;j=j+50)
-        {
-            path.moveTo(0,j);
-            path.lineTo(y*50,j);
+        for (int j = 0; j < xrows * 50; j = j + 50) {
+            path.moveTo(0, j);
+            path.lineTo(ycolumns * 50, j);
             path.close();
         }
 
-        for(int i=0;i<y*50;i=i+50)
-        {
-            path.moveTo(i,0);
-            path.lineTo(i,x*50);
+        for (int i = 0; i < ycolumns * 50; i = i + 50) {
+            path.moveTo(i, 0);
+            path.lineTo(i, xrows * 50);
             path.close();
+        }
+
+        //рисуем схему на канве
+        for (int i = 0; i < xrows; i++) {
+            for (int j = 0; j < ycolumns; j++) {
+                if (patt[i][j]!= Pallet.cell.empty) {
+                    printKnit(i * 50, j * 50, patt[i][j], canvas);
+                }
+
+            }
         }
 
         //рисование path
         p.setColor(Color.BLACK);
-        canvas.drawPath(path,p);
+        canvas.drawPath(path, p);
     }
     //Рисуем петлю в попределенном месте
-    public void printKnit(int x, int y, Pallet.cell c, Canvas canvas)
+    public void printKnit(float x, float y, Pallet.cell c, Canvas canvas)
     {
         //Получаем от getRDrawablePNG что за рисунок рисуем его
         Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));

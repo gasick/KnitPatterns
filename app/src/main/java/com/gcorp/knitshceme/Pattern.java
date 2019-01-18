@@ -5,13 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 
-public  class Pattern {
+public class Pattern {
 
-    int rows;
-    int columns;
+    private int rows;
+    private int columns;
     private Pallet.cell[][] pattern = new Pallet.cell[rows][columns];
-
-    Pallet.cell c = Pallet.cell.pitb;
 
 
     //на запрос пользователя о том, что это за Cell
@@ -50,21 +48,35 @@ public  class Pattern {
         }
     }
 
-        public void Pattern( int x, int y)
-    {
+    //конструктор класса задает пустой рисунок размером x, y
+    Pattern(int x, int y) {
         rows = x;
         columns = y;
-        for (int i = 0; i < x; i++){
-            for (int j = 0; i < y; i++){
-                pattern[i][j]= Pallet.cell.empty;
+        pattern = new Pallet.cell[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                pattern[i][j] = Pallet.cell.empty;
             }
         }
+        pattern[2][1] = Pallet.cell.purl;
+        pattern[4][2] = Pallet.cell.k3tls;
+        pattern[5][2] = Pallet.cell.irs;
+        pattern[4][4] = Pallet.cell.yarnover;
+        pattern[5][6] = Pallet.cell.pitb;
+
+
     }
-    public Pallet.cell[][] getPattern(){
+
+    //получае схему рисунка
+    public Pallet.cell[][] getPattern() {
         return pattern;
     }
 
-    public void patternPrinter(Pattern patt){
-            //for (int i)
+    public void changePattern(int x, int y, Pallet.cell c) {
+        pattern[x][y] = c;
+    }
+
+    public void patternPrinter(Pattern patt) {
+        //for (int i)
     }
 }
