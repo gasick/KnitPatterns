@@ -17,15 +17,17 @@ public class DrawView extends View {
     int ycolumns;
     Pattern pattern;
 
-    public DrawView(Context context, int rows, int columns){
+    public DrawView(Context context, Pattern patt){
         super(context);
         p=new Paint();
         p.setStrokeWidth(3);
         p.setStyle(Paint.Style.STROKE);
         path=new Path();
-        xrows = rows;
-        ycolumns = columns;
-        pattern = new Pattern(xrows, ycolumns);
+        pattern = patt;
+        pattern = patt;
+        xrows = pattern.getRows();
+        ycolumns = pattern.getColumns();
+
 
 
 

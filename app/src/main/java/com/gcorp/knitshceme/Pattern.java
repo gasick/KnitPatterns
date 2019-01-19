@@ -104,7 +104,15 @@ public class Pattern {
 
     //Изменяем схему рисунка
     public void changePattern(int x, int y, Pallet.cell c) {
-        pattern[x][y] = c;
+        pattern[x][y] = Pallet.cell.knit;
+    }
+
+    public int getRows(){
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
     }
 
 
