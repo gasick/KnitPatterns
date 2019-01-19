@@ -76,4 +76,8 @@ public class DrawView extends View {
         canvas.drawBitmap(mBitmap,x, y, null);
 
     }
+    public void printPallet()
+    {
+
+    }
 }
