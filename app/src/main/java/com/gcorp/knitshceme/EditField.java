@@ -25,7 +25,6 @@ public class EditField extends AppCompatActivity {
 
     //Метод слушающий нажатие.
     public boolean onTouchEvent(MotionEvent event) {
-        ;
         float x = event.getX();
         float y = event.getY();
         switch (event.getAction()) {
@@ -33,10 +32,14 @@ public class EditField extends AppCompatActivity {
             int xNew = ((int)x/50);
             //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
             int yNew = ((int)y/50)-4;
-            Toast.makeText(EditField.this, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();
-            pattern.changePattern(xNew, yNew, Pallet.cell.knit);
-            setContentView(new DrawView(this, pattern));
-            return true;
+            if ( xNew > pattern.getRows() || yNew > pattern.getColumns() )
+            {Toast.makeText(EditField.this, xNew+ " и " + yNew +" вне поля редактирования " + x+ " и " + y , Toast.LENGTH_LONG).show();}
+            else {
+                Toast.makeText(EditField.this, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();
+                pattern.changePattern(xNew, yNew, Pallet.cell.knit);
+                setContentView(new DrawView(this, pattern));
+                return true;
+            }
         }
         return false;
 
