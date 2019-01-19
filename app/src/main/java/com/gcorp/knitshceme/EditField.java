@@ -36,7 +36,7 @@ public class EditField extends AppCompatActivity {
             {Toast.makeText(EditField.this, xNew+ " и " + yNew +" вне поля редактирования " + x+ " и " + y , Toast.LENGTH_LONG).show();}
             else {
                 Toast.makeText(EditField.this, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();
-                pattern.changePattern(xNew, yNew, Pallet.cell.knit);
+                pattern.changePattern(xNew, yNew, Pallet.cells.knit);
                 setContentView(new DrawView(this, pattern));
                 return true;
             }
