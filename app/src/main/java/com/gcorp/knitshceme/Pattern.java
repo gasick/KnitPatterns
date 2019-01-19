@@ -58,12 +58,42 @@ public class Pattern {
                 pattern[i][j] = Pallet.cell.empty;
             }
         }
-        pattern[2][1] = Pallet.cell.purl;
-        pattern[4][2] = Pallet.cell.k3tls;
-        pattern[5][2] = Pallet.cell.irs;
-        pattern[4][4] = Pallet.cell.yarnover;
-        pattern[5][6] = Pallet.cell.pitb;
 
+        pattern[1][1] = Pallet.cell.purl;
+        pattern[1][2] = Pallet.cell.purl;
+        pattern[1][3] = Pallet.cell.purl;
+        pattern[1][4] = Pallet.cell.purl;
+        pattern[1][5] = Pallet.cell.purl;
+
+        pattern[2][1] = Pallet.cell.purl;
+        pattern[2][2] = Pallet.cell.yarnover;
+        pattern[2][3] = Pallet.cell.purl;
+        pattern[2][4] = Pallet.cell.yarnover;
+        pattern[2][5] = Pallet.cell.knit;
+
+        pattern[3][1] = Pallet.cell.purl;
+        pattern[3][2] = Pallet.cell.purl;
+        pattern[3][3] = Pallet.cell.purl;
+        pattern[3][4] = Pallet.cell.purl;
+        pattern[3][5] = Pallet.cell.purl;
+
+        pattern[4][1] = Pallet.cell.purl;
+        pattern[4][2] = Pallet.cell.yarnover;
+        pattern[4][3] = Pallet.cell.purl;
+        pattern[4][4] = Pallet.cell.yarnover;
+        pattern[4][5] = Pallet.cell.knit;
+
+        pattern[5][1] = Pallet.cell.purl;
+        pattern[5][2] = Pallet.cell.purl;
+        pattern[5][3] = Pallet.cell.purl;
+        pattern[5][4] = Pallet.cell.purl;
+        pattern[5][5] = Pallet.cell.purl;
+
+        pattern[6][1] = Pallet.cell.purl;
+        pattern[6][2] = Pallet.cell.yarnover;
+        pattern[6][3] = Pallet.cell.purl;
+        pattern[6][4] = Pallet.cell.yarnover;
+        pattern[6][5] = Pallet.cell.knit;
 
     }
 
