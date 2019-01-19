@@ -31,7 +31,8 @@ public class EditField extends AppCompatActivity {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
             int xNew = ((int)x/50);
-            int yNew = ((int)y/50);
+            //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
+            int yNew = ((int)y/50)-4;
             Toast.makeText(EditField.this, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();
             pattern.changePattern(xNew, yNew, Pallet.cell.knit);
             setContentView(new DrawView(this, pattern));
