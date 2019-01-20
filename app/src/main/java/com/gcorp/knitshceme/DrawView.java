@@ -30,17 +30,14 @@ public class DrawView extends View {
         ycolumns = pattern.getColumns();
         pattern.widthOfaPic = testBitmap.getWidth();
         pattern.heightOfaPic = testBitmap.getHeight();
-
-
-
-
-
     }
+
+
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawARGB(80, 255, 255, 255);
-        pattern.width = getWidth();
-        pattern.height = getHeight();
+        pattern.displayWidth = getWidth();
+        pattern.displayHeight = getHeight();
         Pattern.cell[][] patt = pattern.getPattern();
         //очистка path
         path.reset();
@@ -69,11 +66,29 @@ public class DrawView extends View {
         }
 
         drawPallet(canvas);
+        drawMenu(canvas);
 
         //рисование path
         p.setColor(Color.BLACK);
         canvas.drawPath(path, p);
     }
+
+    //Рисуем меню
+    private void drawMenu(Canvas canvas) {
+        int yPalletMenuHeight =  getHeight() - (pattern.heightOfaPic*2);
+        int menuTypesLenght = Pattern.menu.values().length;
+        for (int i = 0; i<menuTypesLenght; i++)
+        {
+            printMenu(i*pattern.heightOfaPic, yPalletMenuHeight, Pattern.menu.values()[i], canvas);
+        }
+    }
+
+    //
+    private void printMenu(float x, float y, Pattern.menu m, Canvas canvas) {
+        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(m));
+        canvas.drawBitmap(mBitmap,x, y, null);
+    }
+
     //Рисуем петлю в попределенном месте
     public void printKnit(float x, float y, Pattern.cell c, Canvas canvas)
     {
@@ -82,13 +97,16 @@ public class DrawView extends View {
         canvas.drawBitmap(mBitmap,x, y, null);
 
     }
+
     public void drawPallet(Canvas canvas)
     {
-        int yPalletHeight =  getHeight() - pattern.heightOfaPic;
-        int lenght = Pattern.cells.length;
-        for (int i = 0; i<lenght; i++)
-        {
-            printKnit(i*pattern.heightOfaPic, yPalletHeight, Pattern.cells[i], canvas);
+        int yPalletKnitHeight =  getHeight() - pattern.heightOfaPic;
+        int KnitTypesLenght = Pattern.cell.values().length;
+        for (int i = 0; i < KnitTypesLenght; i++) {
+            if (Pattern.cell.values()[i] != Pattern.cell.empty) {
+                printKnit(i * pattern.widthOfaPic, yPalletKnitHeight, Pattern.cell.values()[i], canvas);
+            }
         }
     }
+
 }

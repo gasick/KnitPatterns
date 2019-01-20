@@ -8,54 +8,50 @@ import android.graphics.Canvas;
 public class Pattern {
 
     //Параметры рисунка
-    int height;
-    int width;
+    int displayHeight;
+    int displayWidth;
     int widthOfaPic;
     int heightOfaPic;
     private int rows;
     private int columns;
-    private cell[][] pattern;
+    cell[][] pattern;
 
     //Статичная информация
     public enum cell  {p2tls, p2trs,k2tls,k2trs,p3tls,k3tls,purl,knit,yarnover,ils,irs,kitb,pitb,empty}
-    static cell[] cells=  new cell[] {cell.p2tls, cell.p2trs,cell.k2tls,cell.k2trs,cell.p3tls,cell.k3tls,cell.purl,cell.knit,cell.yarnover,cell.ils,cell.irs,cell.kitb,cell.pitb};
     private cell choosenBrash = cell.knit;
+    public enum menu {revert, undo};
+
+    public static int getRDrawablePNG(menu m) {
+        switch (m) {
+            case revert:    return R.drawable.revert;
+            case undo:      return R.drawable.undo;
+            default:        return -1;
+        }
+    }
 
     //на запрос пользователя о том, что это за Cell
     //возвращаем значение рисунка png из drawable
     public static int getRDrawablePNG(cell c) {
         switch (c) {
-            case p2tls:
-                return R.drawable.p2tls;
-            case p2trs:
-                return R.drawable.p2trs;
-            case k2tls:
-                return R.drawable.k2tls;
-            case k2trs:
-                return R.drawable.k2trs;
-            case p3tls:
-                return R.drawable.p3tls;
-            case k3tls:
-                return R.drawable.k3tls;
-            case purl:
-                return R.drawable.purl;
-            case knit:
-                return R.drawable.knit;
-            case yarnover:
-                return R.drawable.yarnover;
-            case ils:
-                return R.drawable.ils;
-            case irs:
-                return R.drawable.irs;
-            case kitb:
-                return R.drawable.kitb;
-            case pitb:
-                return R.drawable.pitb;
-            default:
-                return -1;
+            case p2tls:     return R.drawable.p2tls;
+            case p2trs:     return R.drawable.p2trs;
+            case k2tls:     return R.drawable.k2tls;
+            case k2trs:     return R.drawable.k2trs;
+            case p3tls:     return R.drawable.p3tls;
+            case k3tls:     return R.drawable.k3tls;
+            case purl:      return R.drawable.purl;
+            case knit:      return R.drawable.knit;
+            case yarnover:  return R.drawable.yarnover;
+            case ils:       return R.drawable.ils;
+            case irs:       return R.drawable.irs;
+            case kitb:      return R.drawable.kitb;
+            case pitb:      return R.drawable.pitb;
+            default:        return -1;
 
         }
     }
+
+
 
     //конструктор класса задает пустой рисунок размером x, y
     Pattern(int x, int y) {
