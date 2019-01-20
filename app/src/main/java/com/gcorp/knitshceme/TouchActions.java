@@ -1,15 +1,6 @@
 package com.gcorp.knitshceme;
 
-import android.content.Context;
-import android.graphics.Point;
-import android.util.DisplayMetrics;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.Toast;
-import com.gcorp.knitshceme.DrawView;
-import com.gcorp.knitshceme.EditField;
-import com.gcorp.knitshceme.Pallet;
-import com.gcorp.knitshceme.Pattern;
 
 
 public class TouchActions {
@@ -19,8 +10,8 @@ public class TouchActions {
         if ((int)y > (pattern.height - pattern.heightOfaPic))
         {
             int i = (int) x/pattern.heightOfaPic;
-            if (i <= Pallet.cell.values().length)
-            pattern.setChoosenBrash(Pallet.cell.values()[i]);
+            if (i <= Pattern.cell.values().length)
+            pattern.setChoosenBrash(Pattern.cell.values()[i]);
             Toast.makeText(ef, x + " и " + y  + " " + i+ " и "+ pattern.height + "  Выбрана кисть", Toast.LENGTH_LONG).show();
         }
         else {

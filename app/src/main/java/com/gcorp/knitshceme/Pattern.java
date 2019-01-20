@@ -7,20 +7,22 @@ import android.graphics.Canvas;
 
 public class Pattern {
 
+    public enum cell  {p2tls, p2trs,k2tls,k2trs,p3tls,k3tls,purl,knit,yarnover,ils,irs,kitb,pitb,empty}
+    static cell[] cells=  new cell[] {cell.p2tls, cell.p2trs,cell.k2tls,cell.k2trs,cell.p3tls,cell.k3tls,cell.purl,cell.knit,cell.yarnover,cell.ils,cell.irs,cell.kitb,cell.pitb};
     private int rows;
     private int columns;
-    private Pallet.cell[][] pattern = new Pallet.cell[rows][columns];
+    private cell[][] pattern = new cell[rows][columns];
     int height;
     int width;
     int widthOfaPic;
     int heightOfaPic;
 
-    private Pallet.cell choosenBrash = Pallet.cell.knit;
+    private cell choosenBrash = cell.knit;
 
 
     //на запрос пользователя о том, что это за Cell
     //возвращаем значение рисунка png из drawable
-    public static int getRDrawablePNG(Pallet.cell c) {
+    public static int getRDrawablePNG(cell c) {
         switch (c) {
             case p2tls:
                 return R.drawable.p2tls;
@@ -58,21 +60,21 @@ public class Pattern {
     Pattern(int x, int y) {
         rows = x;
         columns = y;
-        pattern = new Pallet.cell[rows][columns];
+        pattern = new cell[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                pattern[i][j] = Pallet.cell.empty;
+                pattern[i][j] = cell.empty;
             }
         }
     }
 
     //получае схему рисунка
-    public Pallet.cell[][] getPattern() {
+    public cell[][] getPattern() {
         return pattern;
     }
 
     //Изменяем схему рисунка
-    public void changePattern(int x, int y, Pallet.cell c) {
+    public void changePattern(int x, int y, cell c) {
         pattern[x][y] = c;
     }
 
@@ -84,11 +86,11 @@ public class Pattern {
         return columns;
     }
 
-    public Pallet.cell getChoosenBrush()
+    public cell getChoosenBrush()
     {
         return choosenBrash;
     }
-    public void setChoosenBrash(Pallet.cell c){
+    public void setChoosenBrash(cell c){
         choosenBrash = c;
     }
 }

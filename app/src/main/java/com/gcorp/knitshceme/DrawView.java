@@ -41,7 +41,7 @@ public class DrawView extends View {
         canvas.drawARGB(80, 255, 255, 255);
         pattern.width = getWidth();
         pattern.height = getHeight();
-        Pallet.cell[][] patt = pattern.getPattern();
+        Pattern.cell[][] patt = pattern.getPattern();
         //очистка path
         path.reset();
 
@@ -61,7 +61,7 @@ public class DrawView extends View {
         //иходник находится в  pattern
         for (int i = 0; i < xrows; i++) {
             for (int j = 0; j < ycolumns; j++) {
-                if (patt[i][j]!= Pallet.cell.empty) {
+                if (patt[i][j]!= Pattern.cell.empty) {
                     printKnit(i * pattern.widthOfaPic, j * pattern.heightOfaPic, patt[i][j], canvas);
                 }
 
@@ -75,7 +75,7 @@ public class DrawView extends View {
         canvas.drawPath(path, p);
     }
     //Рисуем петлю в попределенном месте
-    public void printKnit(float x, float y, Pallet.cell c, Canvas canvas)
+    public void printKnit(float x, float y, Pattern.cell c, Canvas canvas)
     {
         //Получаем от getRDrawablePNG что за рисунок рисуем его
         Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));
@@ -85,10 +85,10 @@ public class DrawView extends View {
     public void drawPallet(Canvas canvas)
     {
         int yPalletHeight =  getHeight() - pattern.heightOfaPic;
-        int lenght = Pallet.cells.length;
+        int lenght = Pattern.cells.length;
         for (int i = 0; i<lenght; i++)
         {
-            printKnit(i*pattern.heightOfaPic, yPalletHeight, Pallet.cells[i], canvas);
+            printKnit(i*pattern.heightOfaPic, yPalletHeight, Pattern.cells[i], canvas);
         }
     }
 }
