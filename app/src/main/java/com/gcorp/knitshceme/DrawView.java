@@ -24,11 +24,9 @@ public class DrawView extends View {
         p.setStyle(Paint.Style.STROKE);
         path=new Path();
         pattern = patt;
-        pattern = patt;
         xrows = pattern.getRows();
         ycolumns = pattern.getColumns();
-        int height = getHeight();
-        int width = getWidth();
+
 
 
 
@@ -38,7 +36,8 @@ public class DrawView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawARGB(80, 255, 255, 255);
-
+        pattern.width = getWidth();
+        pattern.height = getHeight();
         Pallet.cell[][] patt = pattern.getPattern();
         //очистка path
         path.reset();
@@ -82,11 +81,11 @@ public class DrawView extends View {
     }
     public void drawPallet(Canvas canvas)
     {
-        int palletHeight =  getHeight() -50;
+        int yPalletHeight =  getHeight() -50;
         int lenght = Pallet.cells.length;
         for (int i = 0; i<lenght; i++)
         {
-            printKnit(i*50, palletHeight, Pallet.cells[i], canvas);
+            printKnit(i*50, yPalletHeight, Pallet.cells[i], canvas);
         }
     }
 }

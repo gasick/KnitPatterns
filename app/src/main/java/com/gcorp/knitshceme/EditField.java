@@ -30,7 +30,7 @@ public class EditField extends AppCompatActivity {
         float y = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                TouchActions.ActionOnTouch(x, y, pattern);
+                TouchActions.ActionOnTouch(x, y, pattern, EditField.this);
                 setContentView(new DrawView(this, pattern));
                 return true;
         }

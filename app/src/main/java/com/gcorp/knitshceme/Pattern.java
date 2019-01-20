@@ -10,6 +10,9 @@ public class Pattern {
     private int rows;
     private int columns;
     private Pallet.cell[][] pattern = new Pallet.cell[rows][columns];
+    int height;
+    int width;
+    private Pallet.cell choosenBrash = Pallet.cell.knit;
 
 
     //на запрос пользователя о том, что это за Cell
@@ -104,7 +107,7 @@ public class Pattern {
 
     //Изменяем схему рисунка
     public void changePattern(int x, int y, Pallet.cell c) {
-        pattern[x][y] = Pallet.cell.knit;
+        pattern[x][y] = c;
     }
 
     public int getRows(){
@@ -115,5 +118,11 @@ public class Pattern {
         return columns;
     }
 
-
+    public Pallet.cell getChoosenBrush()
+    {
+        return choosenBrash;
+    }
+    public void setChoosenBrash(Pallet.cell c){
+        choosenBrash = c;
+    }
 }
