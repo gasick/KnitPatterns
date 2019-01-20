@@ -7,18 +7,19 @@ import android.graphics.Canvas;
 
 public class Pattern {
 
-    public enum cell  {p2tls, p2trs,k2tls,k2trs,p3tls,k3tls,purl,knit,yarnover,ils,irs,kitb,pitb,empty}
-    static cell[] cells=  new cell[] {cell.p2tls, cell.p2trs,cell.k2tls,cell.k2trs,cell.p3tls,cell.k3tls,cell.purl,cell.knit,cell.yarnover,cell.ils,cell.irs,cell.kitb,cell.pitb};
-    private int rows;
-    private int columns;
-    private cell[][] pattern = new cell[rows][columns];
+    //Параметры рисунка
     int height;
     int width;
     int widthOfaPic;
     int heightOfaPic;
+    private int rows;
+    private int columns;
+    private cell[][] pattern;
 
+    //Статичная информация
+    public enum cell  {p2tls, p2trs,k2tls,k2trs,p3tls,k3tls,purl,knit,yarnover,ils,irs,kitb,pitb,empty}
+    static cell[] cells=  new cell[] {cell.p2tls, cell.p2trs,cell.k2tls,cell.k2trs,cell.p3tls,cell.k3tls,cell.purl,cell.knit,cell.yarnover,cell.ils,cell.irs,cell.kitb,cell.pitb};
     private cell choosenBrash = cell.knit;
-
 
     //на запрос пользователя о том, что это за Cell
     //возвращаем значение рисунка png из drawable
