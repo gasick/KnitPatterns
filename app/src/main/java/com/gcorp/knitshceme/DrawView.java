@@ -11,6 +11,8 @@ import android.view.View;
 
 public class DrawView extends View {
 
+    Bitmap testBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.knit);
+
     Paint p;
     Path path;
     int xrows;
@@ -26,7 +28,8 @@ public class DrawView extends View {
         pattern = patt;
         xrows = pattern.getRows();
         ycolumns = pattern.getColumns();
-
+        pattern.widthOfaPic = testBitmap.getWidth();
+        pattern.heightOfaPic = testBitmap.getHeight();
 
 
 
@@ -42,15 +45,15 @@ public class DrawView extends View {
         //очистка path
         path.reset();
 
-        for (int j = 0; j < xrows * 50; j = j + 50) {
+        for (int j = 0; j < xrows * pattern.widthOfaPic; j = j + pattern.widthOfaPic) {
             path.moveTo(0, j);
-            path.lineTo(ycolumns * 50, j);
+            path.lineTo(ycolumns * pattern.heightOfaPic, j);
             path.close();
         }
 
-        for (int i = 0; i < ycolumns * 50; i = i + 50) {
+        for (int i = 0; i < ycolumns * pattern.heightOfaPic; i = i + pattern.heightOfaPic) {
             path.moveTo(i, 0);
-            path.lineTo(i, xrows * 50);
+            path.lineTo(i, xrows * pattern.widthOfaPic);
             path.close();
         }
 
@@ -59,7 +62,7 @@ public class DrawView extends View {
         for (int i = 0; i < xrows; i++) {
             for (int j = 0; j < ycolumns; j++) {
                 if (patt[i][j]!= Pallet.cell.empty) {
-                    printKnit(i * 50, j * 50, patt[i][j], canvas);
+                    printKnit(i * pattern.widthOfaPic, j * pattern.heightOfaPic, patt[i][j], canvas);
                 }
 
             }
@@ -81,11 +84,11 @@ public class DrawView extends View {
     }
     public void drawPallet(Canvas canvas)
     {
-        int yPalletHeight =  getHeight() -50;
+        int yPalletHeight =  getHeight() - pattern.heightOfaPic;
         int lenght = Pallet.cells.length;
         for (int i = 0; i<lenght; i++)
         {
-            printKnit(i*50, yPalletHeight, Pallet.cells[i], canvas);
+            printKnit(i*pattern.heightOfaPic, yPalletHeight, Pallet.cells[i], canvas);
         }
     }
 }
