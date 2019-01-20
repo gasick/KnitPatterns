@@ -27,6 +27,8 @@ public class DrawView extends View {
         pattern = patt;
         xrows = pattern.getRows();
         ycolumns = pattern.getColumns();
+        int height = getHeight();
+        int width = getWidth();
 
 
 
@@ -37,7 +39,7 @@ public class DrawView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawARGB(80, 255, 255, 255);
 
-        Pallet.cells[][] patt = pattern.getPattern();
+        Pallet.cell[][] patt = pattern.getPattern();
         //очистка path
         path.reset();
 
@@ -57,27 +59,34 @@ public class DrawView extends View {
         //иходник находится в  pattern
         for (int i = 0; i < xrows; i++) {
             for (int j = 0; j < ycolumns; j++) {
-                if (patt[i][j]!= Pallet.cells.empty) {
+                if (patt[i][j]!= Pallet.cell.empty) {
                     printKnit(i * 50, j * 50, patt[i][j], canvas);
                 }
 
             }
         }
 
+        drawPallet(canvas);
+
         //рисование path
         p.setColor(Color.BLACK);
         canvas.drawPath(path, p);
     }
     //Рисуем петлю в попределенном месте
-    public void printKnit(float x, float y, Pallet.cells c, Canvas canvas)
+    public void printKnit(float x, float y, Pallet.cell c, Canvas canvas)
     {
         //Получаем от getRDrawablePNG что за рисунок рисуем его
         Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));
         canvas.drawBitmap(mBitmap,x, y, null);
 
     }
-    public void printPallet()
+    public void drawPallet(Canvas canvas)
     {
-
+        int palletHeight =  getHeight() -50;
+        int lenght = Pallet.cells.length;
+        for (int i = 0; i<lenght; i++)
+        {
+            printKnit(i*50, palletHeight, Pallet.cells[i], canvas);
+        }
     }
 }
