@@ -2,7 +2,7 @@ package com.gcorp.knitshceme;
 
 import android.widget.Toast;
 
-
+//Класс обрабатывающий нажатия
 public class TouchActions {
     public  static void ActionOnTouch(float x, float y, Pattern pattern, EditField ef) {
         // Высчитываем то куда было нажание указываем это для switch

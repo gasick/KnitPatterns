@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
 
+//Класс рисующий редактор
 public class DrawView extends View {
 
     Bitmap testBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.knit);
@@ -42,6 +43,7 @@ public class DrawView extends View {
         //очистка path
         path.reset();
 
+        //Рисуем сетку редактирования
         for (int j = 0; j < xrows * pattern.widthOfaPic; j = j + pattern.widthOfaPic) {
             path.moveTo(0, j);
             path.lineTo(ycolumns * pattern.heightOfaPic, j);
@@ -73,6 +75,23 @@ public class DrawView extends View {
         canvas.drawPath(path, p);
     }
 
+
+
+    //Рисуем кнопку меню в определенном месте
+    private void printMenu(float x, float y, Pattern.menu m, Canvas canvas) {
+        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(m));
+        canvas.drawBitmap(mBitmap,x, y, null);
+    }
+
+    //Рисуем петлю в определенном месте
+    public void printKnit(float x, float y, Pattern.cell c, Canvas canvas)
+    {
+        //Получаем от getRDrawablePNG что за рисунок рисуем его
+        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));
+        canvas.drawBitmap(mBitmap,x, y, null);
+
+    }
+
     //Рисуем меню
     private void drawMenu(Canvas canvas) {
         int yPalletMenuHeight =  getHeight() - (pattern.heightOfaPic*2);
@@ -83,21 +102,7 @@ public class DrawView extends View {
         }
     }
 
-    //
-    private void printMenu(float x, float y, Pattern.menu m, Canvas canvas) {
-        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(m));
-        canvas.drawBitmap(mBitmap,x, y, null);
-    }
-
-    //Рисуем петлю в попределенном месте
-    public void printKnit(float x, float y, Pattern.cell c, Canvas canvas)
-    {
-        //Получаем от getRDrawablePNG что за рисунок рисуем его
-        Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));
-        canvas.drawBitmap(mBitmap,x, y, null);
-
-    }
-
+    //Собираем палитру из видов петлей.
     public void drawPallet(Canvas canvas)
     {
         int yPalletKnitHeight =  getHeight() - pattern.heightOfaPic;

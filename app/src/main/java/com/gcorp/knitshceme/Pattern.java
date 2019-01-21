@@ -21,6 +21,7 @@ public class Pattern {
     private cell choosenBrash = cell.knit;
     public enum menu {revert, undo};
 
+    //получение R.drawable объекта пункта меню по названию пункта меню
     public static int getRDrawablePNG(menu m) {
         switch (m) {
             case revert:    return R.drawable.revert;
@@ -75,18 +76,22 @@ public class Pattern {
         pattern[x][y] = c;
     }
 
+    //Получаем количество рядов схемы
     public int getRows(){
         return rows;
     }
 
+    //Получаем количество петель схемы
     public int getColumns() {
         return columns;
     }
 
+    //Узнать выбранную кисть редактирования
     public cell getChoosenBrush()
     {
         return choosenBrash;
     }
+    //Установить выбранную кисть редактирования
     public void setChoosenBrash(cell c){
         choosenBrash = c;
     }
