@@ -17,6 +17,16 @@ public class TouchActions {
         if ((int)y > (pattern.displayHeight - (pattern.heightOfaPic*2))){
             int i = (int) x/pattern.heightOfaPic;
             if (i <= Pattern.menu.values().length)
+            {
+                if (i == 0)
+                {
+                    pattern.actionHistory.backwardEditHistory();
+                }
+                if (i==1)
+                {
+                    pattern.actionHistory.forwardEditHistory();
+                }
+            }
             Toast.makeText(ef, x + " и " + y  + " " + i+"  Выбрано меню", Toast.LENGTH_LONG).show();
         }
         else {
@@ -27,7 +37,7 @@ public class TouchActions {
                 Toast.makeText(ef, xNew + " и " + yNew  + " и "+ pattern.displayHeight  + " вне поля редактирования " + x + " и " + y, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(ef, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();
-                pattern.changePattern(xNew, yNew, pattern.getChoosenBrush());
+                pattern.changePatternCell(xNew, yNew, pattern.getChoosenBrush());
             }
         }
     }

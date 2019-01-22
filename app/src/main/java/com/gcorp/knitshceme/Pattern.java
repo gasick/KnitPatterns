@@ -14,12 +14,26 @@ public class Pattern {
     int heightOfaPic;
     private int rows;
     private int columns;
-    cell[][] pattern;
+    cell[][] pattern; // схема рисунка
+    History actionHistory = new History();; //история действий над рисунком
 
     //Статичная информация
     public enum cell  {p2tls, p2trs,k2tls,k2trs,p3tls,k3tls,purl,knit,yarnover,ils,irs,kitb,pitb,empty}
     private cell choosenBrash = cell.knit;
     public enum menu {revert, undo};
+
+    //конструктор класса задает пустой рисунок размером x, y
+    Pattern(int x, int y) {
+        rows = x;
+        columns = y;
+        pattern = new cell[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                pattern[i][j] = cell.empty;
+            }
+        }
+        actionHistory.History(pattern);
+    }
 
     //получение R.drawable объекта пункта меню по названию пункта меню
     public static int getRDrawablePNG(menu m) {
@@ -54,17 +68,7 @@ public class Pattern {
 
 
 
-    //конструктор класса задает пустой рисунок размером x, y
-    Pattern(int x, int y) {
-        rows = x;
-        columns = y;
-        pattern = new cell[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                pattern[i][j] = cell.empty;
-            }
-        }
-    }
+
 
     //получае схему рисунка
     public cell[][] getPattern() {
@@ -72,8 +76,9 @@ public class Pattern {
     }
 
     //Изменяем схему рисунка
-    public void changePattern(int x, int y, cell c) {
+    public void changePatternCell(int x, int y, cell c) {
         pattern[x][y] = c;
+        actionHistory.addEditHistory(pattern);
     }
 
     //Получаем количество рядов схемы

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class History {
 
-    ArrayList<Pattern.cell[][]> history;
-    ArrayList<Pattern.cell[][]> tempHistory;
+    ArrayList<Pattern.cell[][]> history = new ArrayList<>();
+    ArrayList<Pattern.cell[][]> tempHistory = new ArrayList<>();
 
     public void History(Pattern.cell[][] patt){
         history.add(patt);
