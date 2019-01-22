@@ -7,24 +7,22 @@ public class History {
     ArrayList<Pattern.cell[][]> history = new ArrayList<>();
     ArrayList<Pattern.cell[][]> tempHistory = new ArrayList<>();
 
-    public void History(Pattern.cell[][] patt){
-        history.add(patt);
-    }
+
     public Pattern.cell[][] addEditHistory(Pattern.cell[][] patt) {
         history.add(patt);
-        tempHistory = null;
+        tempHistory.clear();
         return history.get(history.size() - 1);
     }
-    public Pattern.cell[][] backwardEditHistory(){
-        int i  = history.size();
-        tempHistory.add(history.get(i-1));
+    public Pattern.cell[][] cancelEditHistory(){
+        int i  = (history.size()-1);
+        tempHistory.add(history.get(i));
         history.remove(i);
-        return history.get(history.size() - 1);
+        return history.get(i- 1);
 
     }
-    public Pattern.cell[][] forwardEditHistory() {
+    public Pattern.cell[][] undoEditHistory() {
         if (tempHistory.size() > 0) {
-            int i = tempHistory.size() - 1;
+            int i = (tempHistory.size() - 1);
             history.add(tempHistory.get(i));
             tempHistory.remove(i);
         }
