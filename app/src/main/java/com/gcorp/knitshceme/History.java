@@ -1,17 +1,34 @@
 package com.gcorp.knitshceme;
 
+import java.util.ArrayList;
+
 public class History {
-    Pattern[] pattern = new Pattern[10];
-    pattern
-    pattern[] history = new pattern[10];
 
-    public void forwardHistory(Pattern patt) {
-        for (int i=0;i<9;i++){
-            history[i] = history[i+1];
+    ArrayList<Pattern.cell[][]> history;
+    ArrayList<Pattern.cell[][]> tempHistory;
+
+    public void History(Pattern.cell[][] patt){
+        history.add(patt);
+    }
+    public Pattern.cell[][] addEditHistory(Pattern.cell[][] patt) {
+        history.add(patt);
+        tempHistory = null;
+        return history.get(history.size() - 1);
+    }
+    public Pattern.cell[][] backwardEditHistory(){
+        int i  = history.size();
+        tempHistory.add(history.get(i-1));
+        history.remove(i);
+        return history.get(history.size() - 1);
+
+    }
+    public Pattern.cell[][] forwardEditHistory() {
+        if (tempHistory.size() > 0) {
+            int i = tempHistory.size() - 1;
+            history.add(tempHistory.get(i));
+            tempHistory.remove(i);
         }
-        history[9] = patt.pattern;
+        return history.get(history.size() - 1);
     }
-    public void backwardHistory(Pattern patt){
 
-    }
 }
