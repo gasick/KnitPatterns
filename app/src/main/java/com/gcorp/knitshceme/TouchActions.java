@@ -30,13 +30,12 @@ public class TouchActions {
                     Toast.makeText(ef, i+"  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
             }
-
         }
         else {
             int xNew = ((int) x / patt.heightOfaPic);
             //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
             int yNew = ((int) y / patt.widthOfaPic) - 4;
-            if (xNew > patt.getRows() || yNew > patt.getColumns()) {
+            if (xNew >= patt.getRows() || yNew >= patt.getColumns()) {
                 Toast.makeText(ef, xNew + " и " + yNew  + " и "+ patt.displayHeight  + " вне поля редактирования " + x + " и " + y, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(ef, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();

@@ -8,6 +8,8 @@ import android.graphics.Canvas;
 public class Pattern {
 
     //Параметры рисунка
+    int startx = -150;
+    int starty = -150;
     int displayHeight;
     int displayWidth;
     int widthOfaPic;
