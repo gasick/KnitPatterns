@@ -29,10 +29,16 @@ public class EditField extends AppCompatActivity {
         float x = event.getX();
         float y = event.getY();
         switch (event.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                pattern.startx = (int) x - (pattern.getRows()/2)*pattern.widthOfaPic;
+                pattern.starty = (int) y-(pattern.getColumns()/2)*pattern.heightOfaPic;
+                setContentView(new DrawView(this, pattern));
+                return true;
             case MotionEvent.ACTION_DOWN:
                 TouchActions.ActionOnTouch(x-pattern.startx, y-pattern.starty, pattern, EditField.this);
                 setContentView(new DrawView(this, pattern));
                 return true;
+
         }
         return false;
     }
