@@ -4,21 +4,21 @@ import android.widget.Toast;
 
 //Класс обрабатывающий нажатия
 public class TouchActions {
-    public  static void ActionOnTouch(float x, float y, Pattern patt, EditField ef) {
+    public  static void ActionOnTouch(Pattern patt, EditField ef) {
         // Высчитываем то куда было нажание указываем это для switch
         //нужно придумать проверку switch и ее дальнейшее использование.
 
 
-        if ((int)y > (patt.displayHeight - patt.heightOfaPic))
+        if ((int)patt.currentY > (patt.displayHeight - patt.heightOfaPic))
         {
-            int i = (int) x/patt.heightOfaPic;
+            int i = (int) patt.currentX/patt.heightOfaPic;
             if (i <= Pattern.cell.values().length)
                 patt.setChoosenBrash(Pattern.cell.values()[i]);
-            Toast.makeText(ef, x + " и " + y  + " " + i+ " и "+ patt.displayHeight + "  Выбрана кисть", Toast.LENGTH_LONG).show();
+            Toast.makeText(ef, patt.currentX + " и " + patt.currentY   + " " + i+ " и "+ patt.displayHeight + "  Выбрана кисть", Toast.LENGTH_LONG).show();
         }
         //Обрабатываем нажатия на значки меню.
-        if ((int)y > (patt.displayHeight - (patt.heightOfaPic*2))){
-            int i = (int) x/patt.heightOfaPic;
+        if ((int)patt.currentY > (patt.displayHeight - (patt.heightOfaPic*2))){
+            int i = (int) patt.currentX/patt.heightOfaPic;
             if (i <= Pattern.menu.values().length)
             {
                 if (i == 0)
@@ -34,11 +34,11 @@ public class TouchActions {
             }
         }
         else {
-            int xNew = ((int) x / patt.heightOfaPic);
+            int xNew = ((int) (patt.currentX-patt.picStartx) / patt.heightOfaPic);
             //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
-            int yNew = ((int) y / patt.widthOfaPic) - 4;
-            if (xNew >= patt.getRows() || yNew >= patt.getColumns() || x <= patt.startx || y <= patt.starty) {
-                Toast.makeText(ef, xNew + " и " + yNew  + " и "+ patt.displayHeight  + " вне поля редактирования " + x + " и " + y, Toast.LENGTH_LONG).show();
+            int yNew = ((int) (patt.currentY-patt.picStarty) / patt.widthOfaPic) - 4;
+            if (xNew >= patt.getRows() || yNew >= patt.getColumns() || patt.currentX <= patt.picStartx || patt.currentY <= patt.picStarty) {
+                Toast.makeText(ef, xNew + " и " + yNew  + " и "+ patt.displayHeight  + " вне поля редактирования " + patt.currentX + " и " + patt.currentY, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(ef, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();
                 patt.changePatternCell(xNew, yNew, patt.getChoosenBrush());

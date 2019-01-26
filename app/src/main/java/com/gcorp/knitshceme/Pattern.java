@@ -7,18 +7,23 @@ import android.graphics.Canvas;
 
 public class Pattern {
 
-    //Параметры рисунка
-    int startx = -150;
-    int starty = -150;
+    // Параметры системы
+    float currentX;
+    float currentY;
     int displayHeight;
     int displayWidth;
     int widthOfaPic;
     int heightOfaPic;
+
+    //Параметры рисунка
+    float picStartx = 0;
+    float picStarty = 0;
     private int rows;
     private int columns;
     cell[][] pattern; // схема рисунка
-    History historyActions = new History();
     //история действий над рисунком
+    History historyActions = new History();
+
 
     //Статичная информация
     public enum cell {

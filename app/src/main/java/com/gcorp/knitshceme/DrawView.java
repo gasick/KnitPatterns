@@ -45,14 +45,14 @@ public class DrawView extends View {
 
         //Рисуем сетку редактирования
         for (int j = 0; j < (1+xrows) * pattern.widthOfaPic; j = j + pattern.widthOfaPic) {
-            path.moveTo(pattern.startx, j+pattern.starty);
-            path.lineTo(pattern.startx+ycolumns * pattern.heightOfaPic, j+pattern.starty);
+            path.moveTo(pattern.picStartx, j+pattern.picStarty);
+            path.lineTo(pattern.picStartx+ycolumns * pattern.heightOfaPic, j+pattern.picStarty);
             path.close();
         }
 
         for (int i = 0; i < (1+ycolumns) * pattern.heightOfaPic; i = i + pattern.heightOfaPic) {
-            path.moveTo(i+pattern.startx, pattern.starty);
-            path.lineTo(i+pattern.startx, pattern.starty +xrows * pattern.widthOfaPic);
+            path.moveTo(i+pattern.picStartx, pattern.picStarty);
+            path.lineTo(i+pattern.picStartx, pattern.picStarty +xrows * pattern.widthOfaPic);
             path.close();
         }
 
@@ -61,7 +61,7 @@ public class DrawView extends View {
         for (int i = 0; i < xrows; i++) {
             for (int j = 0; j < ycolumns; j++) {
                 if (patt[i][j]!= Pattern.cell.empty) {
-                    printKnit(i * pattern.widthOfaPic+pattern.startx, j * pattern.heightOfaPic+pattern.starty, patt[i][j], canvas);
+                    printKnit(i * pattern.widthOfaPic+pattern.picStartx, j * pattern.heightOfaPic+pattern.picStarty, patt[i][j], canvas);
                 }
 
             }

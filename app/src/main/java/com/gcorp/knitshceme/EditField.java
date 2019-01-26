@@ -45,14 +45,16 @@ public class EditField extends AppCompatActivity {
                 secondx = event.getX();
                 secondy = event.getY();
                 if (clickDuration < MAX_CLICK_DURATION) {
-                    TouchActions.ActionOnTouch(firstx - pattern.startx, firsty - pattern.starty, pattern, EditField.this);
+                    pattern.currentX = (int)(firstx);
+                    pattern.currentY = (int) (firsty);
+                    TouchActions.ActionOnTouch( pattern, EditField.this);
                     setContentView(new DrawView(this, pattern));
                     return true;
                 }
                 else
                 {
-                    pattern.startx = (int) (secondx-firstx);
-                    pattern.starty = (int) (secondy-firsty);
+                    pattern.picStartx = (int) (secondx-firstx);
+                    pattern.picStarty = (int) (secondy-firsty);
                     setContentView(new DrawView(this, pattern));
                     return true;
 
