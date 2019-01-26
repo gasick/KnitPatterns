@@ -44,13 +44,13 @@ public class DrawView extends View {
         path.reset();
 
         //Рисуем сетку редактирования
-        for (int j = 0; j < xrows * pattern.widthOfaPic; j = j + pattern.widthOfaPic) {
+        for (int j = 0; j < (1+xrows) * pattern.widthOfaPic; j = j + pattern.widthOfaPic) {
             path.moveTo(pattern.startx, j+pattern.starty);
             path.lineTo(pattern.startx+ycolumns * pattern.heightOfaPic, j+pattern.starty);
             path.close();
         }
 
-        for (int i = 1; i < ycolumns * pattern.heightOfaPic; i = i + pattern.heightOfaPic) {
+        for (int i = 0; i < (1+ycolumns) * pattern.heightOfaPic; i = i + pattern.heightOfaPic) {
             path.moveTo(i+pattern.startx, pattern.starty);
             path.lineTo(i+pattern.startx, pattern.starty +xrows * pattern.widthOfaPic);
             path.close();
