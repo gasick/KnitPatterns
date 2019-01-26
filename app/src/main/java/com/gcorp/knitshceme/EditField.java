@@ -6,10 +6,16 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 
 public class EditField extends AppCompatActivity {
 
     Pattern pattern;
+    float firstx, firsty, secondx, secondy;
+    private static final int MAX_CLICK_DURATION = 200;
+    private long startClickTime;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +32,39 @@ public class EditField extends AppCompatActivity {
 
     //Метод слушающий нажатие.
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
+
         switch (event.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-                pattern.startx = (int) x - (pattern.getRows()/2)*pattern.widthOfaPic;
-                pattern.starty = (int) y-(pattern.getColumns()/2)*pattern.heightOfaPic;
-                setContentView(new DrawView(this, pattern));
+            case MotionEvent.ACTION_DOWN: {
+                startClickTime = Calendar.getInstance().getTimeInMillis();
+                firstx = event.getX();
+                firsty = event.getY();
                 return true;
-            case MotionEvent.ACTION_DOWN:
-                TouchActions.ActionOnTouch(x-pattern.startx, y-pattern.starty, pattern, EditField.this);
-                setContentView(new DrawView(this, pattern));
-                return true;
+            }
+            case MotionEvent.ACTION_UP: {
+                long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                secondx = event.getX();
+                secondy = event.getY();
+                if (clickDuration < MAX_CLICK_DURATION) {
+                    TouchActions.ActionOnTouch(firstx - pattern.startx, firsty - pattern.starty, pattern, EditField.this);
+                    setContentView(new DrawView(this, pattern));
+                    return true;
+                }
+                else
+                {
+                    pattern.startx = (int) (secondx-firstx);
+                    pattern.starty = (int) (secondy-firsty);
+                    setContentView(new DrawView(this, pattern));
+                    return true;
+
+                }
+
+            }
+
 
         }
         return false;
-    }
 
+    }
 }
+
 

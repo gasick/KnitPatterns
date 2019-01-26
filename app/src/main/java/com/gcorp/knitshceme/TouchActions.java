@@ -7,6 +7,8 @@ public class TouchActions {
     public  static void ActionOnTouch(float x, float y, Pattern patt, EditField ef) {
         // Высчитываем то куда было нажание указываем это для switch
         //нужно придумать проверку switch и ее дальнейшее использование.
+
+
         if ((int)y > (patt.displayHeight - patt.heightOfaPic))
         {
             int i = (int) x/patt.heightOfaPic;
@@ -35,7 +37,7 @@ public class TouchActions {
             int xNew = ((int) x / patt.heightOfaPic);
             //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
             int yNew = ((int) y / patt.widthOfaPic) - 4;
-            if (xNew >= patt.getRows() || yNew >= patt.getColumns()) {
+            if (xNew >= patt.getRows() || yNew >= patt.getColumns() || xNew <= patt.startx || yNew <= patt.starty) {
                 Toast.makeText(ef, xNew + " и " + yNew  + " и "+ patt.displayHeight  + " вне поля редактирования " + x + " и " + y, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(ef, " x = " + xNew + " y = " + yNew, Toast.LENGTH_LONG).show();

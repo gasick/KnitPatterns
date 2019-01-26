@@ -67,6 +67,7 @@ public class DrawView extends View {
             }
         }
 
+        //рисуем палитру и меню
         drawPallet(canvas);
         drawMenu(canvas);
 
