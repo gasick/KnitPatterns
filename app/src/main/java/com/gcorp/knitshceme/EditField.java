@@ -10,18 +10,18 @@ import android.widget.Toast;
 public class EditField extends AppCompatActivity {
 
     Pattern pattern;
-
+    paintField pField = paintField.newInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_field);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, pField)
+                    .commitNow();
+        pField.setIntent(getIntent());
 
-        Intent intent = getIntent();
-
-        int rows = Integer.parseInt(intent.getStringExtra("rows"));
-        int columns = Integer.parseInt(intent.getStringExtra("columns"));
-        pattern = new Pattern(rows, columns);
-        setContentView(new DrawView(this, pattern));
+        }
     }
 
     //Метод слушающий нажатие.
@@ -32,14 +32,15 @@ public class EditField extends AppCompatActivity {
             case MotionEvent.ACTION_MOVE:
                 pattern.startx = (int) x - (pattern.getRows()/2)*pattern.widthOfaPic;
                 pattern.starty = (int) y-(pattern.getColumns()/2)*pattern.heightOfaPic;
-                setContentView(new DrawView(this, pattern));
+                pField.DrawOnFragmet(pattern);
                 return false;
             case MotionEvent.ACTION_DOWN:
-                TouchActions.ActionOnTouch(x - pattern.startx, y - pattern.starty, pattern, EditField.this);
-                setContentView(new DrawView(this, pattern));
+                TouchActions.ActionOnTouch(x - pattern.startx, y - pattern.starty, pattern, this);
+                pField.DrawOnFragmet(pattern);
                 return true;
         }
         return false;
     }
+
 }
 
