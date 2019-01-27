@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
+
 
 public class Pattern {
 
@@ -22,7 +24,8 @@ public class Pattern {
     private int columns;
     cell[][] pattern; // схема рисунка
     //история действий над рисунком
-    History historyActions = new History();
+    ArrayList<cell[][]> history = new ArrayList<>();
+    ArrayList<Pattern.cell[][]> tempHistory = new ArrayList<>();
 
 
     //Статичная информация
@@ -95,9 +98,32 @@ public class Pattern {
         }
     }
 
+    public void addEditHistory(Pattern.cell[][] patt) {
+        history.add(patt);
+        tempHistory.clear();
+        pattern = history.get(history.size() - 1);
+
+    }
+    public void undoEditHistory() {
+        if (history.size() > 1) {
+            int i = (history.size() - 1);
+            tempHistory.add(history.get(i));
+            history.remove(i);
+            pattern = history.get(i - 1);
+        }
+        pattern = history.get(history.size());
+    }
+    public void redoEditHistory() {
+        if (tempHistory.size() > 0) {
+            int i = (tempHistory.size() - 1);
+            history.add(tempHistory.get(i));
+            tempHistory.remove(i);
+        }
+        pattern =  history.get(history.size() - 1);
+    }
 
     public void updatePattern(cell[][] patt) {
-        pattern = patt;
+
     }
 
     //получае схему рисунка
@@ -108,7 +134,7 @@ public class Pattern {
     //Изменяем схему рисунка
     public void changePatternCell(int x, int y, cell c) {
         pattern[x][y] = c;
-        historyActions.addEditHistory(pattern);
+        addEditHistory(pattern);
     }
 
     //Получаем количество рядов схемы
