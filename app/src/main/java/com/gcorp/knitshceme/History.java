@@ -13,14 +13,14 @@ public class History {
         tempHistory.clear();
         return history.get(history.size() - 1);
     }
-    public Pattern.cell[][] cancelEditHistory(){
-        int i  = (history.size()-1);
+    public Pattern.cell[][] undoEditHistory() {
+        int i = (history.size() - 1);
         tempHistory.add(history.get(i));
         history.remove(i);
-        return history.get(i- 1);
+        return history.get(i - 1);
 
     }
-    public Pattern.cell[][] undoEditHistory() {
+    public Pattern.cell[][] redoEditHistory() {
         if (tempHistory.size() > 0) {
             int i = (tempHistory.size() - 1);
             history.add(tempHistory.get(i));

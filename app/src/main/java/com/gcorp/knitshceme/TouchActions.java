@@ -14,7 +14,7 @@ public class TouchActions {
             int i = (int) patt.currentX/patt.heightOfaPic;
             if (i <= Pattern.cell.values().length)
                 patt.setChoosenBrash(Pattern.cell.values()[i]);
-            Toast.makeText(ef, patt.currentX + " и " + patt.currentY   + " " + i+ " и "+ patt.displayHeight + "  Выбрана кисть", Toast.LENGTH_LONG).show();
+            Toast.makeText(ef, patt.currentX + " и " + patt.currentY   + "  Выбрана кисть", Toast.LENGTH_LONG).show();
         }
         //Обрабатываем нажатия на значки меню.
         if ((int)patt.currentY > (patt.displayHeight - (patt.heightOfaPic*2))){
@@ -23,12 +23,12 @@ public class TouchActions {
             {
                 if (i == 0)
                 {
-                    patt.updatePattern(patt.historyActions.cancelEditHistory());
+                    patt.updatePattern(patt.historyActions.undoEditHistory());
                     Toast.makeText(ef, i+"  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
                 if (i==1)
                 {
-                    patt.updatePattern(patt.historyActions.undoEditHistory());
+                    patt.updatePattern(patt.historyActions.redoEditHistory());
                     Toast.makeText(ef, i+"  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
             }
