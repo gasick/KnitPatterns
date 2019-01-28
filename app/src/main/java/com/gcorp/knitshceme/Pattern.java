@@ -3,6 +3,7 @@ package com.gcorp.knitshceme;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,7 +15,7 @@ public class Pattern {
         p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty
     }
 
-    public enum menu {revert, undo};
+    public enum menu {undo, redo};
 
     float currentX;
     float currentY;
@@ -46,16 +47,15 @@ public class Pattern {
                 pattern[i][j] = cell.empty;
             }
         }
-
     }
 
     //получение R.drawable объекта пункта меню по названию пункта меню
     public static int getRDrawablePNG(menu m) {
         switch (m) {
-            case revert:
-                return R.drawable.revert;
             case undo:
                 return R.drawable.undo;
+            case redo:
+                return R.drawable.redo;
             default:
                 return -1;
         }
@@ -99,21 +99,31 @@ public class Pattern {
 
     public void addHistory(Pattern.cell[][] patt) {
        history.add(patt);
+       Log.i("addHisotry", "history.add");
        tempHistory.clear();
+       Log.i("addHisotry", "tempHistory.clear");
     }
-    public void undoHistory() {
+    public void historyUndo() {
         if( history.size()>= 1) {
+            Log.i("historyUndo", "history.size()");
             tempHistory.add(history.get(history.size()-1));
+            Log.i("historyUndo", "tempHistory.add(history.get(history.size");
             history.remove(history.size()-1);
+            Log.i("historyUndo", "history.remove(history.size()");
             pattern = history.get(history.size()-1);
+            Log.i("historyUndo", "pattern = history.get(history.size()");
         }
     }
-    public void redoHistory() {
+    public void historyRedo() {
         int i = tempHistory.size();
-        if (i >= 2) {
-            pattern = tempHistory.get(i-2);
-            history.add(tempHistory.get(i-2));
+        if (i >= 1) {
+            Log.i("historyUndo", "tempHistory.size()");
+            pattern = tempHistory.get(i-1);
+            Log.i("historyUndo", "pattern = tempHistory.get");
+            history.add(tempHistory.get(i-1));
+            Log.i("historyUndo", "history.add(tempHistory.get(");
             tempHistory.remove(i-1);
+            Log.i("historyUndo", "tempHistory.remove(");
         }
     }
 

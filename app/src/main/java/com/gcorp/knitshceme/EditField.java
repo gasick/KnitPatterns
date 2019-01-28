@@ -53,7 +53,7 @@ public class EditField extends AppCompatActivity {
                 //получаем координаты отпускания
                 secondx = event.getX();
                 secondy = event.getY();
-                //Если нажание длилось больше чем 200 мс то значит это редактирование.
+                //Если нажание длилось меньше чем 200 мс то значит это редактирование.
                 //Тогда мы просто ставим в клетку тип петли
                 if (clickDuration < MAX_CLICK_DURATION) {
                     pattern.currentX = (int)(firstx);

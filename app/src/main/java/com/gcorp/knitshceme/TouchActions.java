@@ -18,15 +18,15 @@ public class TouchActions {
             ).show();
         }
         //Обрабатываем нажатия на значки меню.
-        if ((int) patt.currentY > (patt.displayHeight - (patt.heightOfaPic * 2))) {
+        if ((int) patt.currentY > (patt.displayHeight - (patt.heightOfaPic * 2)) && (int)patt.currentY< (patt.displayHeight - patt.heightOfaPic)) {
             int i = (int) patt.currentX / patt.heightOfaPic;
             if (i <= Pattern.menu.values().length) {
                 if (i == 0) {
-                    patt.undoHistory();
+                    patt.historyUndo();
                     Toast.makeText(ef, i + "  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
                 if (i == 1) {
-                    patt.redoHistory();
+                    patt.historyRedo();
                     Toast.makeText(ef, i + "  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
             }
