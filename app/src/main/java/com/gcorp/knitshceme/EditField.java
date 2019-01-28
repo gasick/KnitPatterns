@@ -70,12 +70,9 @@ public class EditField extends AppCompatActivity {
                     pattern.picStarty = pattern.picStarty + (int) (secondy-firsty);
                     setContentView(new DrawView(this, pattern));
                     return true;
-
                 }
 
             }
-
-
         }
         return false;
 

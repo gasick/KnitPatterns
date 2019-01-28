@@ -22,11 +22,11 @@ public class TouchActions {
             int i = (int) patt.currentX / patt.heightOfaPic;
             if (i <= Pattern.menu.values().length) {
                 if (i == 0) {
-                    patt.undoEditHistory();
+                    patt.undoHistory();
                     Toast.makeText(ef, i + "  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
                 if (i == 1) {
-                    patt.redoEditHistory();
+                    patt.redoHistory();
                     Toast.makeText(ef, i + "  Выбрано меню", Toast.LENGTH_LONG).show();
                 }
             }

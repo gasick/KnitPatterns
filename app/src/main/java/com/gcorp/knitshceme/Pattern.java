@@ -10,6 +10,12 @@ import java.util.ArrayList;
 public class Pattern {
 
     // Параметры системы
+    public enum cell {
+        p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty
+    }
+
+    public enum menu {revert, undo};
+
     float currentX;
     float currentY;
     int displayHeight;
@@ -22,20 +28,13 @@ public class Pattern {
     float picStarty = 0;
     private int rows;
     private int columns;
+    private cell choosenBrash = cell.knit;
     cell[][] pattern; // схема рисунка
     //история действий над рисунком
     ArrayList<cell[][]> history = new ArrayList<>();
     ArrayList<Pattern.cell[][]> tempHistory = new ArrayList<>();
 
 
-    //Статичная информация
-    public enum cell {
-        p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty
-    }
-
-    private cell choosenBrash = cell.knit;
-
-    public enum menu {revert, undo};
 
     //конструктор класса задает пустой рисунок размером x, y
     Pattern(int x, int y) {
@@ -98,28 +97,24 @@ public class Pattern {
         }
     }
 
-    public void addEditHistory(Pattern.cell[][] patt) {
-        history.add(patt);
-        tempHistory.clear();
-        pattern = history.get(history.size() - 1);
-
+    public void addHistory(Pattern.cell[][] patt) {
+       history.add(patt);
+       tempHistory.clear();
     }
-    public void undoEditHistory() {
-        if (history.size() > 1) {
-            int i = (history.size() - 1);
-            tempHistory.add(history.get(i));
-            history.remove(i);
-            pattern = history.get(i - 1);
+    public void undoHistory() {
+        if( history.size()>= 1) {
+            tempHistory.add(history.get(history.size()-1));
+            history.remove(history.size()-1);
+            pattern = history.get(history.size()-1);
         }
-        pattern = history.get(history.size());
     }
-    public void redoEditHistory() {
-        if (tempHistory.size() > 0) {
-            int i = (tempHistory.size() - 1);
-            history.add(tempHistory.get(i));
-            tempHistory.remove(i);
+    public void redoHistory() {
+        int i = tempHistory.size();
+        if (i >= 2) {
+            pattern = tempHistory.get(i-2);
+            history.add(tempHistory.get(i-2));
+            tempHistory.remove(i-1);
         }
-        pattern =  history.get(history.size() - 1);
     }
 
     public void updatePattern(cell[][] patt) {
@@ -134,7 +129,7 @@ public class Pattern {
     //Изменяем схему рисунка
     public void changePatternCell(int x, int y, cell c) {
         pattern[x][y] = c;
-        addEditHistory(pattern);
+        addHistory(pattern);
     }
 
     //Получаем количество рядов схемы
