@@ -18,7 +18,7 @@ public class TouchActions {
             ).show();
         }
         //Обрабатываем нажатия на значки меню.
-        if ((int) patt.currentY > (patt.displayHeight - (patt.heightOfaPic * 2)) && (int)patt.currentY< (patt.displayHeight - patt.heightOfaPic)) {
+        if ((int) patt.currentY > (patt.displayHeight - (patt.heightOfaPic * 2))) {
             int i = (int) patt.currentX / patt.heightOfaPic;
             if (i <= Pattern.menu.values().length) {
                 if (i == 0) {

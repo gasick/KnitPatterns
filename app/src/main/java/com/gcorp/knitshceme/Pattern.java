@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Stack;
 
 
 public class Pattern {
@@ -32,8 +34,9 @@ public class Pattern {
     private cell choosenBrash = cell.knit;
     cell[][] pattern; // схема рисунка
     //история действий над рисунком
-    ArrayList<cell[][]> history = new ArrayList<>();
-    ArrayList<Pattern.cell[][]> tempHistory = new ArrayList<>();
+    Stack<cell[][]> history = new Stack<>();
+    Stack<cell[][]> tempHistory = new Stack<>();
+
 
 
 
@@ -52,12 +55,9 @@ public class Pattern {
     //получение R.drawable объекта пункта меню по названию пункта меню
     public static int getRDrawablePNG(menu m) {
         switch (m) {
-            case undo:
-                return R.drawable.undo;
-            case redo:
-                return R.drawable.redo;
-            default:
-                return -1;
+            case undo: return R.drawable.undo;
+            case redo: return R.drawable.redo;
+            default: return -1;
         }
     }
 
@@ -65,53 +65,66 @@ public class Pattern {
     //возвращаем значение рисунка png из drawable
     public static int getRDrawablePNG(cell c) {
         switch (c) {
-            case p2tls:
-                return R.drawable.p2tls;
-            case p2trs:
-                return R.drawable.p2trs;
-            case k2tls:
-                return R.drawable.k2tls;
-            case k2trs:
-                return R.drawable.k2trs;
-            case p3tls:
-                return R.drawable.p3tls;
-            case k3tls:
-                return R.drawable.k3tls;
-            case purl:
-                return R.drawable.purl;
-            case knit:
-                return R.drawable.knit;
-            case yarnover:
-                return R.drawable.yarnover;
-            case ils:
-                return R.drawable.ils;
-            case irs:
-                return R.drawable.irs;
-            case kitb:
-                return R.drawable.kitb;
-            case pitb:
-                return R.drawable.pitb;
-            default:
-                return -1;
-
+            case p2tls: return R.drawable.p2tls;
+            case p2trs: return R.drawable.p2trs;
+            case k2tls: return R.drawable.k2tls;
+            case k2trs: return R.drawable.k2trs;
+            case p3tls: return R.drawable.p3tls;
+            case k3tls: return R.drawable.k3tls;
+            case purl: return R.drawable.purl;
+            case knit: return R.drawable.knit;
+            case yarnover: return R.drawable.yarnover;
+            case ils: return R.drawable.ils;
+            case irs: return R.drawable.irs;
+            case kitb: return R.drawable.kitb;
+            case pitb: return R.drawable.pitb;
+            default: return -1;
         }
     }
 
-    public void addHistory(Pattern.cell[][] patt) {
-       history.add(patt);
-       Log.i("addHisotry", "history.add");
-       tempHistory.clear();
-       Log.i("addHisotry", "tempHistory.clear");
+    public void addHistory() {
+        history.push(pattern);
+        Log.i("add History", "history.add");
+        int iii = history.size();
+        Log.i("History size", String.valueOf(iii));
+        String temp = "";
+        String temp1 = "";
+        String temp2 = "";
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                temp += "({" + i + "," + j + "," + pattern[i][j] + "})";
+            }
+        }
+        Log.i("History pattern", temp);
+        for (int y  = 0; y<history.size(); y++) {
+
+            cell[][] h = history.elementAt(y);
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    temp1 += "({" + i + "," + j + "," + h[i][j] + "})";
+
+                }
+            }
+
+            Log.i("History h", temp1);
+            temp1 = "";
+        }
+
+        /*
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                temp2 += "({" + i + "," + j + "," + pattern[i][j] + "})";
+            }
+        }
+        Log.i("History temp", temp2);
+*/
+        tempHistory.clear();
+        Log.i("add History", "tempHistory.clear");
     }
     public void historyUndo() {
-        if( history.size()>= 1) {
-            Log.i("historyUndo", "history.size()");
-            tempHistory.add(history.get(history.size()-1));
-            Log.i("historyUndo", "tempHistory.add(history.get(history.size");
-            history.remove(history.size()-1);
-            Log.i("historyUndo", "history.remove(history.size()");
-            pattern = history.get(history.size()-1);
-            Log.i("historyUndo", "pattern = history.get(history.size()");
+        if (!history.empty()){
+            tempHistory.push(history.pop());
+            pattern = history.peek();
         }
     }
     public void historyRedo() {
@@ -138,8 +151,44 @@ public class Pattern {
 
     //Изменяем схему рисунка
     public void changePatternCell(int x, int y, cell c) {
+        history.push(getPattern());
+        String temp2 = "";
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                temp2 += "({" + i + "," + j + "," + history.lastElement()[i][j] + "})";
+            }
+        }
+        Log.i("History history.atI", temp2);
         pattern[x][y] = c;
-        addHistory(pattern);
+        String temp = "";
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                temp += "({" + i + "," + j + "," + pattern[i][j] + "})";
+            }
+        }
+        Log.i("History changePatCell", temp);
+        String temp1 = "";
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                temp1 += "({" + i + "," + j + "," + history.lastElement()[i][j] + "})";
+            }
+        }
+        Log.i("History history.atI", temp1);
+        String temp3 = String.valueOf(history.size());
+        Log.i("History history.atI", temp3);
+        if (history.size()>4) {
+            String temp4 = "";
+            history.pop();
+            cell[][] h = history.firstElement();
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    temp4 += "({" + i + "," + j + "," + h[i][j] + "})";
+                }
+            }
+            Log.i("History history.atI", temp4);
+        }
+
+
     }
 
     //Получаем количество рядов схемы
