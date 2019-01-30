@@ -13,15 +13,14 @@ public class Pattern {
     }
     public enum menu {undo, redo};
 
-
-
-
+    //Параметры поля редактирования
     float currentX;
     float currentY;
     int displayHeight;
     int displayWidth;
     int widthOfaPic;
     int heightOfaPic;
+    float magnifier = 1.3f;
 
     //Параметры рисунка
     cell[][] pattern; // схема рисунка
