@@ -1,12 +1,7 @@
 package com.gcorp.knitshceme;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.util.Log;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import android.util.Log;
 import java.util.Stack;
 
 
@@ -16,8 +11,10 @@ public class Pattern {
     public enum cell {
         p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty
     }
-
     public enum menu {undo, redo};
+
+
+
 
     float currentX;
     float currentY;
@@ -27,12 +24,13 @@ public class Pattern {
     int heightOfaPic;
 
     //Параметры рисунка
+    cell[][] pattern; // схема рисунка
     float picStartx = 0;
     float picStarty = 0;
     private int rows;
     private int columns;
     private cell choosenBrash = cell.knit;
-    cell[][] pattern; // схема рисунка
+
     //история действий над рисунком
     Stack<cell[][]> history = new Stack<>();
     Stack<cell[][]> tempHistory = new Stack<>();
@@ -97,8 +95,7 @@ public class Pattern {
         }
         Log.i("History pattern", temp);
         for (int y  = 0; y<history.size(); y++) {
-
-            cell[][] h = history.elementAt(y);
+            cell[][] h = (cell[][]) history.elementAt(y);
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < columns; j++) {
                     temp1 += "({" + i + "," + j + "," + h[i][j] + "})";
@@ -124,14 +121,14 @@ public class Pattern {
     public void historyUndo() {
         if (!history.empty()){
             tempHistory.push(history.pop());
-            pattern = history.peek();
+            pattern =(cell[][]) history.peek();
         }
     }
     public void historyRedo() {
         int i = tempHistory.size();
         if (i >= 1) {
             Log.i("historyUndo", "tempHistory.size()");
-            pattern = tempHistory.get(i-1);
+            pattern =(cell[][]) tempHistory.get(i-1);
             Log.i("historyUndo", "pattern = tempHistory.get");
             history.add(tempHistory.get(i-1));
             Log.i("historyUndo", "history.add(tempHistory.get(");
@@ -152,42 +149,29 @@ public class Pattern {
     //Изменяем схему рисунка
     public void changePatternCell(int x, int y, cell c) {
         history.push(getPattern());
-        String temp2 = "";
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                temp2 += "({" + i + "," + j + "," + history.lastElement()[i][j] + "})";
-            }
-        }
-        Log.i("History history.atI", temp2);
-        pattern[x][y] = c;
-        String temp = "";
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                temp += "({" + i + "," + j + "," + pattern[i][j] + "})";
-            }
-        }
-        Log.i("History changePatCell", temp);
-        String temp1 = "";
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                temp1 += "({" + i + "," + j + "," + history.lastElement()[i][j] + "})";
-            }
-        }
-        Log.i("History history.atI", temp1);
-        String temp3 = String.valueOf(history.size());
-        Log.i("History history.atI", temp3);
-        if (history.size()>4) {
-            String temp4 = "";
-            history.pop();
-            cell[][] h = history.firstElement();
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < columns; j++) {
-                    temp4 += "({" + i + "," + j + "," + h[i][j] + "})";
-                }
-            }
-            Log.i("History history.atI", temp4);
-        }
 
+            Log.i("History full value", String.valueOf(history));
+
+        String temp2 = "";
+        for (int i = 0; i < 5; i++) {
+            int j = 0;
+                cell[][] h = (cell[][]) history.peek();
+                Log.i("History h.peek","({" + i + "," + j + "," + h[i][j] + "})");
+
+        }
+        for (cell[][] ccc: history) {
+            String temp = "";
+            for (int i = 0; i < 5; i++) {
+                int j = 0;
+                temp += "({" + i + "," + j + "," + ccc[i][j] + "})";
+
+            }
+            Log.i("History h.elementAt",temp);
+        }
+        for (int xx = 0; xx < history.size(); xx++) {
+
+        }
+        pattern[x][y] = c;
 
     }
 
