@@ -9,8 +9,8 @@ public class TouchActions {
         //нужно придумать проверку switch и ее дальнейшее использование.
 
 
-        if ((int) patt.currentY > (patt.displayHeight - patt.heightOfaPic)) {
-            int i = (int) patt.currentX / patt.heightOfaPic;
+        if ((int) patt.currentY > (patt.displayHeight - patt.heightSizeOfaPic)) {
+            int i = (int) patt.currentX / patt.heightSizeOfaPic;
             if (i <= Pattern.cell.values().length)
                 patt.setChoosenBrash(Pattern.cell.values()[i]);
             Toast.makeText(
@@ -18,8 +18,8 @@ public class TouchActions {
             ).show();
         }
         //Обрабатываем нажатия на значки меню.
-        if ((int) patt.currentY > (patt.displayHeight - (patt.heightOfaPic * 2))) {
-            int i = (int) patt.currentX / patt.heightOfaPic;
+        if ((int) patt.currentY > (patt.displayHeight - (patt.heightSizeOfaPic * 2))) {
+            int i = (int) patt.currentX / patt.heightSizeOfaPic;
             if (i <= Pattern.menu.values().length) {
                 if (i == 0) {
                     patt.historyUndo();
@@ -31,9 +31,9 @@ public class TouchActions {
                 }
             }
         } else {
-            int xNew = ((int) (patt.currentX - patt.picStartx) / patt.heightOfaPic);
+            int xNew = ((int) (patt.currentX - patt.picStartx) / patt.heightSizeOfaPic);
             //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
-            int yNew = ((int) (patt.currentY - patt.picStarty) / patt.widthOfaPic) - 4;
+            int yNew = ((int) (patt.currentY - patt.picStarty) / patt.widthSizeOfaPic) - 4;
             if (xNew >= patt.getRows() || yNew >= patt.getColumns()
                     || patt.currentX <= patt.picStartx || patt.currentY <= patt.picStarty) {
                 Toast.makeText

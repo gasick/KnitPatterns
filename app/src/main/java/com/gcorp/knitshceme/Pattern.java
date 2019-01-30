@@ -1,6 +1,9 @@
 package com.gcorp.knitshceme;
 
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import java.util.Stack;
 
@@ -18,9 +21,13 @@ public class Pattern {
     float currentY;
     int displayHeight;
     int displayWidth;
-    int widthOfaPic;
-    int heightOfaPic;
-    float magnifier = 1.3f;
+    private int picWidth;
+    private int picHeight;
+    float magnifier = 1.5f;
+    int widthSizeOfaPic;
+    int heightSizeOfaPic;
+
+
 
     //Параметры рисунка
     cell[][] pattern; // схема рисунка
@@ -38,7 +45,7 @@ public class Pattern {
 
 
     //конструктор класса задает пустой рисунок размером x, y
-    Pattern(int x, int y) {
+    Pattern(int x, int y, int picWidth_, int picHeight_) {
         rows = x;
         columns = y;
         pattern = new cell[rows][columns];
@@ -47,6 +54,18 @@ public class Pattern {
                 pattern[i][j] = cell.empty;
             }
         }
+        picWidth = picWidth_;
+        picHeight = picHeight_;
+        widthSizeOfaPic = (int)(picWidth * magnifier);
+        heightSizeOfaPic = (int)(picHeight_ * magnifier);
+    }
+
+    //Увеличение/уменьшение размера поля
+    public void changeMagnifier(int newMangifireValue) {
+        magnifier = newMangifireValue;
+        widthSizeOfaPic = (int)(picWidth*magnifier);
+        heightSizeOfaPic = (int)(picHeight*magnifier);
+
     }
 
     //получение R.drawable объекта пункта меню по названию пункта меню

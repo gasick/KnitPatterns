@@ -1,6 +1,9 @@
 package com.gcorp.knitshceme;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -17,18 +20,20 @@ public class EditField extends AppCompatActivity {
     private long startClickTime;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_field);
-
+        Bitmap testBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.knit);
         Intent intent = getIntent();
 
         //Рисуем пустое поле размером rows на columns
         int rows = Integer.parseInt(intent.getStringExtra("rows"));
         int columns = Integer.parseInt(intent.getStringExtra("columns"));
+
         //создаем объект этого поля в памяти.
-        pattern = new Pattern(rows, columns);
+        pattern = new Pattern(rows, columns, testBitmap.getWidth(),testBitmap.getHeight());
         //Рисуем канву со всемы вытекающими
         setContentView(new DrawView(this, pattern));
     }
