@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -19,6 +20,7 @@ public class EditField extends AppCompatActivity {
     private static final int MAX_CLICK_DURATION = 200;
     private long startClickTime;
     float x,y;
+    private VelocityTracker mVelocityTracker = null;
 
 
     @Override
@@ -46,19 +48,35 @@ public class EditField extends AppCompatActivity {
             //Проверяем касание
             //Нажатие на экран
             case MotionEvent.ACTION_DOWN:
-                x = event.getX();
-                y = event.getY();
+                startClickTime = Calendar.getInstance().getTimeInMillis();
+                if(mVelocityTracker == null) {
+                    // Retrieve a new VelocityTracker object to watch the
+                    // velocity of a motion.
+                    mVelocityTracker = VelocityTracker.obtain();
+                }
+                else {
+                    // Reset the velocity tracker back to its initial state.
+                    mVelocityTracker.clear();
+                }
+                // Add a user's movement to the tracker.
+                mVelocityTracker.addMovement(event);
+                break;
 
             case MotionEvent.ACTION_UP:
-                pattern.currentX = (int) event.getX();
-                pattern.currentY = (int) event.getY();
-                TouchActions.ActionOnTouch(pattern, EditField.this);
-                setContentView(new DrawView(this, pattern));
+                long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
+                if (clickDuration < 200) {
+                    pattern.currentX = (int) event.getX();
+                    pattern.currentY = (int) event.getY();
+                    TouchActions.ActionOnTouch(pattern, EditField.this);
+                    setContentView(new DrawView(this, pattern));
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
+                mVelocityTracker.addMovement(event);
+                mVelocityTracker.computeCurrentVelocity(50);
                 //Тогда двигается рисунок относительно экрана.
-                pattern.picStartx = pattern.picStartx + (int) (event.getX() - x);
-                pattern.picStarty = pattern.picStarty + (int) (event.getY() - y);
+                pattern.picStartx = pattern.picStartx + (int)mVelocityTracker.getXVelocity();
+                pattern.picStarty = pattern.picStarty + (int)mVelocityTracker.getYVelocity();
                 setContentView(new DrawView(this, pattern));
                 break;
         }

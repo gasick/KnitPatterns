@@ -23,7 +23,7 @@ public class Pattern {
     int displayWidth;
     private int picWidth;
     private int picHeight;
-    float magnifier = 1.5f;
+    float magnifier = 1f;
     int widthSizeOfaPic;
     int heightSizeOfaPic;
 
