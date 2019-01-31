@@ -6,21 +6,22 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 
 public class EditField extends AppCompatActivity {
 
     Pattern pattern;
-    float firstx, firsty, secondx, secondy;
-    private static final int MAX_CLICK_DURATION = 200;
     private long startClickTime;
     float x,y;
     private VelocityTracker mVelocityTracker = null;
+
 
 
     @Override
@@ -72,13 +73,21 @@ public class EditField extends AppCompatActivity {
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                mVelocityTracker.addMovement(event);
-                mVelocityTracker.computeCurrentVelocity(50);
-                //Тогда двигается рисунок относительно экрана.
-                pattern.picStartx = pattern.picStartx + (int)mVelocityTracker.getXVelocity();
-                pattern.picStarty = pattern.picStarty + (int)mVelocityTracker.getYVelocity();
-                setContentView(new DrawView(this, pattern));
-                break;
+                if (event.getPointerCount() > 1){
+                    mVelocityTracker.addMovement(event);
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    mVelocityTracker.computeCurrentVelocity(5);
+                    pattern.setMagnifier((float)((Math.sqrt(Math.pow(mVelocityTracker.getXVelocity(),2)+Math.pow(mVelocityTracker.getYVelocity(),2)))));
+                    setContentView(new DrawView(this, pattern));
+                }else {
+                    mVelocityTracker.addMovement(event);
+                    mVelocityTracker.computeCurrentVelocity(50);
+                    //Тогда двигается рисунок относительно экрана.
+                    pattern.picStartx = pattern.picStartx + (int) mVelocityTracker.getXVelocity();
+                    pattern.picStarty = pattern.picStarty + (int) mVelocityTracker.getYVelocity();
+                    setContentView(new DrawView(this, pattern));
+                    break;
+                }
         }
 
 

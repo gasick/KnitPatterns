@@ -65,8 +65,8 @@ public class DrawView extends View {
         //Получаем от getRDrawablePNG что за рисунок рисуем его
         Bitmap mBitmap = BitmapFactory.decodeResource(getResources(), Pattern.getRDrawablePNG(c));
         Bitmap updatedmBitmap = Bitmap.createScaledBitmap(
-                mBitmap,(int)(mBitmap.getWidth()*pattern.magnifier),
-                (int)(mBitmap.getHeight()*pattern.magnifier),
+                mBitmap,(int)(pattern.widthSizeOfaPic),
+                (int)(pattern.heightSizeOfaPic),
                 false);
         canvas.drawBitmap(updatedmBitmap,x,y,null);
 

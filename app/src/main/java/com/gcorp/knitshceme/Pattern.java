@@ -23,7 +23,7 @@ public class Pattern {
     int displayWidth;
     private int picWidth;
     private int picHeight;
-    float magnifier = 1f;
+    float magnifier = 1.15f;
     int widthSizeOfaPic;
     int heightSizeOfaPic;
 
@@ -61,11 +61,12 @@ public class Pattern {
     }
 
     //Увеличение/уменьшение размера поля
-    public void changeMagnifier(int newMangifireValue) {
-        magnifier = newMangifireValue;
-        widthSizeOfaPic = (int)(picWidth*magnifier);
-        heightSizeOfaPic = (int)(picHeight*magnifier);
-
+    public void setMagnifier(float newMagnifierValue) {
+        if (newMagnifierValue > 0) {
+            magnifier = newMagnifierValue;
+            widthSizeOfaPic = (int) (picWidth * magnifier);
+            heightSizeOfaPic = (int) (picHeight * magnifier);
+        }
     }
 
     //получение R.drawable объекта пункта меню по названию пункта меню

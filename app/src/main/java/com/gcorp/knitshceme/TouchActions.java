@@ -33,13 +33,13 @@ public class TouchActions {
         } else {
             int xNew = ((int) (patt.currentX - patt.picStartx) / patt.heightSizeOfaPic);
             //-4 для сдвига относительно оси y в противном случае рисунок уходит от точки касания.
-            int yNew = ((int) (patt.currentY - patt.picStarty) / patt.widthSizeOfaPic) - 4;
+            int yNew = ((int) (patt.currentY - patt.picStarty) / patt.widthSizeOfaPic)-4;
             if (xNew >= patt.getRows() || yNew >= patt.getColumns()
-                    || patt.currentX <= patt.picStartx || patt.currentY <= patt.picStarty) {
+                    || xNew < 0 || yNew < 0) {
                 Toast.makeText
                         (
-                                ef, xNew + " и " + yNew + " и " + patt.displayHeight +
-                                        " вне поля редактирования " + patt.currentX + " и " + patt.currentY,
+                                ef, xNew + " и " + yNew + " вне поля редактирования " +
+                                        patt.currentX + " и " + patt.currentY,
                                 Toast.LENGTH_LONG
                         ).show();
             } else {
