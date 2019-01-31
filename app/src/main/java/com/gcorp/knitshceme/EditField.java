@@ -18,7 +18,7 @@ public class EditField extends AppCompatActivity {
     float firstx, firsty, secondx, secondy;
     private static final int MAX_CLICK_DURATION = 200;
     private long startClickTime;
-
+    float x,y;
 
 
     @Override
@@ -40,46 +40,32 @@ public class EditField extends AppCompatActivity {
 
     //Метод слушающий нажатие.
     public boolean onTouchEvent(MotionEvent event) {
-
+        x = event.getX();
+        y = event.getY();
         switch (event.getAction()) {
             //Проверяем касание
             //Нажатие на экран
-            case MotionEvent.ACTION_DOWN: {
-                //записывает когда нажание началось
-                startClickTime = Calendar.getInstance().getTimeInMillis();
-                //Получаем координаты положения нажатия
-                firstx = event.getX();
-                firsty = event.getY();
-                return true;
-            }//Отпускаем экран
-            case MotionEvent.ACTION_UP: {
-                //высчитываем время между нажатием на экран и тем когда экран был отпущен
-                long clickDuration = Calendar.getInstance().getTimeInMillis() - startClickTime;
-                //получаем координаты отпускания
-                secondx = event.getX();
-                secondy = event.getY();
-                //Если нажание длилось меньше чем 200 мс то значит это редактирование.
-                //Тогда мы просто ставим в клетку тип петли
-                if (clickDuration < MAX_CLICK_DURATION) {
-                    pattern.currentX = (int)(firstx);
-                    pattern.currentY = (int) (firsty);
-                    TouchActions.ActionOnTouch( pattern, EditField.this);
-                    setContentView(new DrawView(this, pattern));
-                    return true;
-                }
-                //Если нажание было долгое, то скорей всего это перемещеение
-                //Тогда двигается рисунок относительно экрана.
-                else
-                {
-                    pattern.picStartx = pattern.picStartx  + (int) (secondx-firstx);
-                    pattern.picStarty = pattern.picStarty + (int) (secondy-firsty);
-                    setContentView(new DrawView(this, pattern));
-                    return true;
-                }
+            case MotionEvent.ACTION_DOWN:
+                x = event.getX();
+                y = event.getY();
 
-            }
+            case MotionEvent.ACTION_UP:
+                pattern.currentX = (int) event.getX();
+                pattern.currentY = (int) event.getY();
+                TouchActions.ActionOnTouch(pattern, EditField.this);
+                setContentView(new DrawView(this, pattern));
+                break;
+            case MotionEvent.ACTION_MOVE:
+                //Тогда двигается рисунок относительно экрана.
+                pattern.picStartx = pattern.picStartx + (int) (event.getX() - x);
+                pattern.picStarty = pattern.picStarty + (int) (event.getY() - y);
+                setContentView(new DrawView(this, pattern));
+                break;
         }
-        return false;
+
+
+
+        return true;
 
     }
 }
