@@ -1,8 +1,15 @@
 package com.gcorp.knitshceme;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.provider.SyncStateContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,13 +36,41 @@ public class OpenFile extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        Intent intentFileOpen = new Intent(Intent.ACTION_GET_CONTENT);
-        intentFileOpen.setType("file/*");
-        startActivityForResult(intentFileOpen, PICKFILE_RESULT_CODE);
+        if (Build.VERSION.SDK_INT >= 23) {
+            //динамическое получение прав на INTERNET
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("Permission is:"," granted");
 
+                    //делаете что-то с интернетом
 
+            } else {
+                Log.d("Permission is", "revoked");
+                //запрашиваем разрешение
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            }
 
+            /*
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("Permission is:"," granted");
+
+                    //делаете что-то с интернетом
+
+            } else {
+                Log.d("Permission is", "revoked");
+                //запрашиваем разрешение
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+            */
+
+            Intent intentFileOpen = new Intent(Intent.ACTION_GET_CONTENT);
+            intentFileOpen.setType("file/*");
+            startActivityForResult(intentFileOpen, PICKFILE_RESULT_CODE);
+        }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
