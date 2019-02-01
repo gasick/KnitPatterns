@@ -5,6 +5,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.Stack;
 
 
@@ -57,7 +59,25 @@ public class Pattern {
         picWidth = picWidth_;
         picHeight = picHeight_;
         widthSizeOfaPic = (int)(picWidth * magnifier);
-        heightSizeOfaPic = (int)(picHeight_ * magnifier);
+        heightSizeOfaPic = (int)(picHeight * magnifier);
+    }
+
+
+    Pattern(int x, int y, int picWidth_, int picHeight_, String fileName) {
+        ArrayList<String> inputFile = FileWork.openFile(fileName);
+        rows = inputFile.size();
+        columns = inputFile.get(0).length();
+        pattern = new cell[rows][columns];
+        for (int i = 0; i < rows; i++) {
+            String[] line =  inputFile.get(i).split("||");
+            for (int j = 0; j < columns; j++) {
+                pattern[i][j] = cell.valueOf(line[j]);
+            }
+        }
+        picWidth = picWidth_;
+        picHeight = picHeight_;
+        widthSizeOfaPic = (int)(picWidth * magnifier);
+        heightSizeOfaPic = (int)(picHeight * magnifier);
     }
 
     //Увеличение/уменьшение размера поля
