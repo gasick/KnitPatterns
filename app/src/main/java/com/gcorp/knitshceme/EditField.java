@@ -31,12 +31,23 @@ public class EditField extends AppCompatActivity {
         Bitmap testBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.knit);
         Intent intent = getIntent();
 
-        //Рисуем пустое поле размером rows на columns
-        int rows = Integer.parseInt(intent.getStringExtra("rows"));
-        int columns = Integer.parseInt(intent.getStringExtra("columns"));
+        String action = intent.getStringExtra("action");
+        switch (action){
+            case "create":
+                //Рисуем пустое поле размером rows на columns
+                int rows = Integer.parseInt(intent.getStringExtra("rows"));
+                int columns = Integer.parseInt(intent.getStringExtra("columns"));
 
-        //создаем объект этого поля в памяти.
-        pattern = new Pattern(rows, columns, testBitmap.getWidth(),testBitmap.getHeight());
+                //создаем объект этого поля в памяти.
+                pattern = new Pattern(rows, columns, testBitmap.getWidth(),testBitmap.getHeight());
+                break;
+            case "open":
+                String filePath = intent.getStringExtra("uri");
+                pattern = new Pattern(testBitmap.getWidth(),testBitmap.getHeight(),filePath );
+                break;
+        }
+
+
         //Рисуем канву со всемы вытекающими
         setContentView(new DrawView(this, pattern));
     }

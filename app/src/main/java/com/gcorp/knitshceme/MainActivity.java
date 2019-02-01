@@ -12,29 +12,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //Объявляем данные которые мы будем собирать
     EditText rows;
     EditText columns;
-    Button btnSubmit;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button patternCreateButton  = findViewById(R.id.patternCreateButton);
+        Button openFileButton = findViewById(R.id.patternOpenButton);
+
         //Собираем данные которые передадим в новое окно
         rows = findViewById(R.id.numOfRows);
         columns = findViewById(R.id.numOfColunms);
-        btnSubmit = findViewById(R.id.patternCreateButton);
-        btnSubmit.setOnClickListener(this);
+
+        patternCreateButton.setOnClickListener(this);
+        openFileButton.setOnClickListener(this);
 
 
     }
 
     public void onClick(View view){
-        Intent intent = new Intent(MainActivity.this, EditField.class);
-        //Отправляем данные котоыре мы собрали на MainActivity
-        //передаем значения как string
-        intent.putExtra("rows", rows.getText().toString() );
-        intent.putExtra("columns", columns.getText().toString());
-        startActivity(intent);
+        switch(view.getId())
+        {
+            case R.id.patternCreateButton:
+                Intent intentCreatePattern = new Intent(MainActivity.this, EditField.class);
+                //Отправляем данные котоыре мы собрали на MainActivity
+                //передаем значения как string
+                intentCreatePattern.putExtra("action", "create");
+                intentCreatePattern.putExtra("rows", rows.getText().toString() );
+                intentCreatePattern.putExtra("columns", columns.getText().toString());
+                startActivity(intentCreatePattern);
+                break;
+            case R.id.patternOpenButton:
+                Intent intentOpenPattern = new Intent(MainActivity.this, OpenFile.class);
+                startActivity(intentOpenPattern);
+                break;
+
+        }
 
 
 

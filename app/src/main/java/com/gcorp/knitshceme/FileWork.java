@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class FileWork {
     //Метод октрытия файла
+    //Вызывается из pattern чтобы можно было создать сразу паттерн из этого класса.
     public static ArrayList<String> openFile(String fileName){
         ArrayList<String> inputFile = new ArrayList<>();
         try {

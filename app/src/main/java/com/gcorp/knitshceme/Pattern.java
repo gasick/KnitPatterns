@@ -25,7 +25,7 @@ public class Pattern {
     int displayWidth;
     private int picWidth;
     private int picHeight;
-    float magnifier = 1.15f;
+    float magnifier = 1f;
     int widthSizeOfaPic;
     int heightSizeOfaPic;
 
@@ -63,9 +63,11 @@ public class Pattern {
     }
 
 
-    Pattern(int x, int y, int picWidth_, int picHeight_, String fileName) {
+    Pattern(int picWidth_, int picHeight_, String fileName) {
         ArrayList<String> inputFile = FileWork.openFile(fileName);
+        Log.i("File path", fileName);
         rows = inputFile.size();
+        Log.i("File path", inputFile.get(0));
         columns = inputFile.get(0).length();
         pattern = new cell[rows][columns];
         for (int i = 0; i < rows; i++) {
