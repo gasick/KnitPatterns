@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 
@@ -14,7 +15,17 @@ public class Pattern {
 
     // Параметры системы
     public enum cell {
-        p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty
+        p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty;
+        public static cell getCellValue(int i)
+        {
+            for (cell c : cell.values()) {
+                if (c.ordinal() == i) {
+                    return c;
+                }
+            }
+            return cell.empty;
+
+        }
     }
     public enum menu {undo, redo};
 
@@ -56,6 +67,10 @@ public class Pattern {
                 pattern[i][j] = cell.empty;
             }
         }
+        Log.i("Pattern value",  Arrays.deepToString(getPattern()));
+        Log.i("Cell ils value", cell.ils.toString());
+        Log.i("Cell value", cell.values()[0].toString());
+
         picWidth = picWidth_;
         picHeight = picHeight_;
         widthSizeOfaPic = (int)(picWidth * magnifier);
@@ -66,16 +81,26 @@ public class Pattern {
     Pattern(int picWidth_, int picHeight_, String fileName) {
         ArrayList<String> inputFile = FileWork.openFile(fileName);
         Log.i("File path", fileName);
-        rows = inputFile.size();
+        rows= inputFile.size();
         Log.i("File path", inputFile.get(0));
-        columns = inputFile.get(0).length();
+        String[] testlength =  inputFile.get(0).split(",");
+        columns = testlength.length;
         pattern = new cell[rows][columns];
-        for (int i = 0; i < rows; i++) {
-            String[] line =  inputFile.get(i).split("||");
-            for (int j = 0; j < columns; j++) {
+        /*for (int i = 0; i == rows; i++) {
+            String[] line =  inputFile.get(i).split(",");
+            Log.i("Array string", Arrays.toString(line));
+            Log.i("Cell value", line[0]);
+            for (int j = 0; j == columns; j++) {
+                Log.i("Cell value",line[j]);
                 pattern[i][j] = cell.valueOf(line[j]);
             }
+        }*/
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                pattern[i][j] = cell.empty;
+            }
         }
+        Log.i("Pattern value", Arrays.deepToString(getPattern()));
         picWidth = picWidth_;
         picHeight = picHeight_;
         widthSizeOfaPic = (int)(picWidth * magnifier);
