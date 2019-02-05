@@ -16,15 +16,86 @@ public class Pattern {
     // Параметры системы
     public enum cell {
         p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty;
-        public static cell getCellValue(int i)
-        {
-            for (cell c : cell.values()) {
-                if (c.ordinal() == i) {
-                    return c;
-                }
+        public static cell getCellValue(String str) {
+            cell c;
+            switch (str) {
+                case "p2tls":
+                    c = p2tls;
+                    break;
+                case "p2trs":
+                    c = p2trs;
+                    break;
+                case "k2tls":
+                    c = k2tls;
+                    break;
+                case "k2trs":
+                    c = k2trs;
+                    break;
+                case "p3tls":
+                    c = p3tls;
+                    break;
+                case "k3tls":
+                    c = k3tls;
+                    break;
+                case "purl":
+                    c = purl;
+                    break;
+                case "knit":
+                    c = knit;
+                    break;
+                case "yarnover":
+                    c = yarnover;
+                    break;
+                case "ils":
+                    c = ils;
+                    break;
+                case "irs":
+                    c = irs;
+                    break;
+                case "kitb":
+                    c = kitb;
+                    break;
+                case "pitb":
+                    c = pitb;
+                    break;
+                default:
+                    c = empty;
             }
-            return cell.empty;
-
+            return c;
+        }
+        public static String getCellString(cell c) {
+            String s;
+            switch (c) {
+                case p2tls:
+                    s = "p2tls";
+                case p2trs:
+                    s = "p2trs";
+                case k2tls:
+                    s = "k2tls";
+                case k2trs:
+                    s = "k2trs";
+                case p3tls:
+                    s = "p3tls";
+                case k3tls:
+                    s = "k3tls";
+                case purl:
+                    s = "purl";
+                case knit:
+                    s = "knit";
+                case yarnover:
+                    s = "yarnover";
+                case ils:
+                    s = "ils";
+                case irs:
+                    s = "irs";
+                case kitb:
+                    s = "kitb";
+                case pitb:
+                    s = "pitb";
+                default:
+                    s = "empty";
+            }
+            return s;
         }
     }
     public enum menu {undo, redo};
@@ -86,18 +157,13 @@ public class Pattern {
         String[] testlength =  inputFile.get(0).split(",");
         columns = testlength.length;
         pattern = new cell[rows][columns];
-        /*for (int i = 0; i == rows; i++) {
+        for (int i = 0; i == rows; i++) {
             String[] line =  inputFile.get(i).split(",");
             Log.i("Array string", Arrays.toString(line));
             Log.i("Cell value", line[0]);
             for (int j = 0; j == columns; j++) {
                 Log.i("Cell value",line[j]);
-                pattern[i][j] = cell.valueOf(line[j]);
-            }
-        }*/
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                pattern[i][j] = cell.empty;
+                pattern[i][j] = cell.getCellValue(line[j]);
             }
         }
         Log.i("Pattern value", Arrays.deepToString(getPattern()));
