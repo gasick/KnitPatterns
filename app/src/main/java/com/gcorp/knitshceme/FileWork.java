@@ -1,5 +1,7 @@
 package com.gcorp.knitshceme;
 
+import android.provider.DocumentsContract;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,19 +38,21 @@ public class FileWork {
     }
     //Метод сохранения файла
     public void saveFile(Pattern patt, String fileName) {
+        String direcotry = "/storage/emulated/0/Documents/";
         for (int i=0;i<patt.getRows();i++)
         {
             String data = "";
             for (int j =0; j<patt.getColumns(); j++){
-                data +=  patt.pattern[i][j].ordinal() + "||";
+                Pattern.cell c = patt.pattern[i][j];
+                data +=  Pattern.cell.getCellString(c) + ",";
             }
             data += "\n";
             BufferedWriter bw = null;
             FileWriter fw = null;
             try {
 
-                File file = new File(fileName);
-                // if file doesnt exists, then create it
+                File file = new File(direcotry + fileName);
+                // if file doesn't exists, then create it
                 if (!file.exists()) {
                     file.createNewFile();
                 }

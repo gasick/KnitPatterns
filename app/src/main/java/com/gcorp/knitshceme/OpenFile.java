@@ -22,6 +22,7 @@ public class OpenFile extends AppCompatActivity implements View.OnClickListener{
     private static final int PICKFILE_RESULT_CODE = 1;
     String filePath="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +66,7 @@ public class OpenFile extends AppCompatActivity implements View.OnClickListener{
             */
 
             Intent intentFileOpen = new Intent(Intent.ACTION_GET_CONTENT);
-            intentFileOpen.setType("file/*");
+            intentFileOpen.setType("*/*");
             startActivityForResult(intentFileOpen, PICKFILE_RESULT_CODE);
         }
     }

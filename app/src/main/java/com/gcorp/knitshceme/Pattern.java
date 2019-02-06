@@ -19,81 +19,40 @@ public class Pattern {
         public static cell getCellValue(String str) {
             cell c;
             switch (str) {
-                case "p2tls":
-                    c = p2tls;
-                    break;
-                case "p2trs":
-                    c = p2trs;
-                    break;
-                case "k2tls":
-                    c = k2tls;
-                    break;
-                case "k2trs":
-                    c = k2trs;
-                    break;
-                case "p3tls":
-                    c = p3tls;
-                    break;
-                case "k3tls":
-                    c = k3tls;
-                    break;
-                case "purl":
-                    c = purl;
-                    break;
-                case "knit":
-                    c = knit;
-                    break;
-                case "yarnover":
-                    c = yarnover;
-                    break;
-                case "ils":
-                    c = ils;
-                    break;
-                case "irs":
-                    c = irs;
-                    break;
-                case "kitb":
-                    c = kitb;
-                    break;
-                case "pitb":
-                    c = pitb;
-                    break;
-                default:
-                    c = empty;
+                case "p2tls": c = p2tls;break;
+                case "p2trs": c = p2trs;break;
+                case "k2tls": c = k2tls;break;
+                case "k2trs": c = k2trs;break;
+                case "p3tls": c = p3tls;break;
+                case "k3tls": c = k3tls;break;
+                case "purl": c = purl;break;
+                case "knit": c = knit;break;
+                case "yarnover": c = yarnover;break;
+                case "ils": c = ils; break;
+                case "irs": c = irs; break;
+                case "kitb": c = kitb; break;
+                case "pitb": c = pitb; break;
+                default: c = empty;
             }
             return c;
         }
         public static String getCellString(cell c) {
             String s;
             switch (c) {
-                case p2tls:
-                    s = "p2tls";
-                case p2trs:
-                    s = "p2trs";
-                case k2tls:
-                    s = "k2tls";
-                case k2trs:
-                    s = "k2trs";
-                case p3tls:
-                    s = "p3tls";
-                case k3tls:
-                    s = "k3tls";
-                case purl:
-                    s = "purl";
-                case knit:
-                    s = "knit";
-                case yarnover:
-                    s = "yarnover";
-                case ils:
-                    s = "ils";
-                case irs:
-                    s = "irs";
-                case kitb:
-                    s = "kitb";
-                case pitb:
-                    s = "pitb";
-                default:
-                    s = "empty";
+                case p2tls:s = "p2tls"; break;
+                case p2trs: s = "p2trs"; break;
+                case k2tls:s = "k2tls"; break;
+                case k2trs:s = "k2trs"; break;
+                case p3tls: s = "p3tls"; break;
+                case k3tls: s = "k3tls"; break;
+                case purl: s = "purl"; break;
+                case knit: s = "knit"; break;
+                case yarnover: s = "yarnover"; break;
+                case ils: s = "ils"; break;
+                case irs:s = "irs"; break;
+                case kitb: s = "kitb"; break;
+                case pitb: s = "pitb"; break;
+                default: s = "empty"; break;
             }
             return s;
         }
@@ -153,15 +112,17 @@ public class Pattern {
         ArrayList<String> inputFile = FileWork.openFile(fileName);
         Log.i("File path", fileName);
         rows= inputFile.size();
-        Log.i("File path", inputFile.get(0));
+        Log.i("First line", inputFile.get(0));
         String[] testlength =  inputFile.get(0).split(",");
+        Log.i("testlength", testlength.toString());
         columns = testlength.length;
         pattern = new cell[rows][columns];
-        for (int i = 0; i == rows; i++) {
+        Log.i("Pattern value", Arrays.deepToString(getPattern()));
+        for (int i = 0; i < rows; i++) {
             String[] line =  inputFile.get(i).split(",");
             Log.i("Array string", Arrays.toString(line));
             Log.i("Cell value", line[0]);
-            for (int j = 0; j == columns; j++) {
+            for (int j = 0; j < columns; j++) {
                 Log.i("Cell value",line[j]);
                 pattern[i][j] = cell.getCellValue(line[j]);
             }
