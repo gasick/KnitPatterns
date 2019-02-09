@@ -98,7 +98,7 @@ public class DrawView extends View {
         Pattern.cell[][] p = patt.getPattern();
         for (int i = 0; i < xrows; i++) {
             for (int j = 0; j < ycolumns; j++) {
-                if (p[i][j] != Pattern.cell.empty) {
+                if (p[i][j] != Pattern.cell.EMPTY) {
                     printKnit
                             (
                                     i * pattern.widthSizeOfaPic + pattern.picStartx,
@@ -125,7 +125,7 @@ public class DrawView extends View {
         int yPalletKnitHeight = getHeight() - (int)(pattern.heightSizeOfaPic);
         int KnitTypesLenght = Pattern.cell.values().length;
         for (int i = 0; i < KnitTypesLenght; i++) {
-            if (Pattern.cell.values()[i] != Pattern.cell.empty) {
+            if (Pattern.cell.values()[i] != Pattern.cell.EMPTY) {
                 printKnit(i * pattern.widthSizeOfaPic,yPalletKnitHeight,Pattern.cell.values()[i],canvas);
             }
         }

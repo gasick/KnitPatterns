@@ -1,11 +1,8 @@
 package com.gcorp.knitshceme;
 
 
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 
+import android.util.Log;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -15,43 +12,26 @@ public class Pattern {
 
     // Параметры системы
     public enum cell {
-        p2tls, p2trs, k2tls, k2trs, p3tls, k3tls, purl, knit, yarnover, ils, irs, kitb, pitb, empty;
+        P2TLS, P2TRS, K2TLS, K2TRS, P3TLS, K3TLS, PURL, KNIT, YARNOVER, ILS, IRL, KITB, PITB, EMPTY;
         public static cell getCellValue(String str) {
-            cell c;
-            switch (str) {
-                case "p2tls": c = p2tls;break;
-                case "p2trs": c = p2trs;break;
-                case "k2tls": c = k2tls;break;
-                case "k2trs": c = k2trs;break;
-                case "p3tls": c = p3tls;break;
-                case "k3tls": c = k3tls;break;
-                case "purl": c = purl;break;
-                case "knit": c = knit;break;
-                case "yarnover": c = yarnover;break;
-                case "ils": c = ils; break;
-                case "irs": c = irs; break;
-                case "kitb": c = kitb; break;
-                case "pitb": c = pitb; break;
-                default: c = empty;
-            }
-            return c;
+            return cell.valueOf(str.trim());
         }
         public static String getCellString(cell c) {
             String s;
             switch (c) {
-                case p2tls:s = "p2tls"; break;
-                case p2trs: s = "p2trs"; break;
-                case k2tls:s = "k2tls"; break;
-                case k2trs:s = "k2trs"; break;
-                case p3tls: s = "p3tls"; break;
-                case k3tls: s = "k3tls"; break;
-                case purl: s = "purl"; break;
-                case knit: s = "knit"; break;
-                case yarnover: s = "yarnover"; break;
-                case ils: s = "ils"; break;
-                case irs:s = "irs"; break;
-                case kitb: s = "kitb"; break;
-                case pitb: s = "pitb"; break;
+                case P2TLS:s = "P2TLS"; break;
+                case P2TRS: s = "P2TRS"; break;
+                case K2TLS:s = "K2TLS"; break;
+                case K2TRS:s = "K2TRS"; break;
+                case P3TLS: s = "P3TLS"; break;
+                case K3TLS: s = "K3TLS"; break;
+                case PURL: s = "PURL"; break;
+                case KNIT: s = "KNIT"; break;
+                case YARNOVER: s = "YARNOVER"; break;
+                case ILS: s = "ILS"; break;
+                case IRL:s = "IRL"; break;
+                case KITB: s = "KITB"; break;
+                case PITB: s = "PITB"; break;
                 default: s = "empty"; break;
             }
             return s;
@@ -78,7 +58,7 @@ public class Pattern {
     float picStarty = 0;
     private int rows;
     private int columns;
-    private cell choosenBrash = cell.knit;
+    private cell choosenBrash = cell.KNIT;
 
     //история действий над рисунком
     Stack<cell[][]> history = new Stack<>();
@@ -94,11 +74,11 @@ public class Pattern {
         pattern = new cell[rows][columns];
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                pattern[i][j] = cell.empty;
+                pattern[i][j] = cell.EMPTY;
             }
         }
         Log.i("Pattern value",  Arrays.deepToString(getPattern()));
-        Log.i("Cell ils value", cell.ils.toString());
+        Log.i("Cell ILS value", cell.ILS.toString());
         Log.i("Cell value", cell.values()[0].toString());
 
         picWidth = picWidth_;
@@ -112,7 +92,7 @@ public class Pattern {
         ArrayList<String> inputFile = FileWork.openFile(fileName);
         Log.i("File path", fileName);
         rows= inputFile.size();
-        Log.i("First line", inputFile.get(0));
+        Log.i("FIRLt line", inputFile.get(0));
         String[] testlength =  inputFile.get(0).split(",");
         Log.i("testlength", testlength.toString());
         columns = testlength.length;
@@ -125,6 +105,8 @@ public class Pattern {
             for (int j = 0; j < columns; j++) {
                 Log.i("Cell value",line[j]);
                 pattern[i][j] = cell.getCellValue(line[j]);
+                Log.i("pattern value",cell.getCellValue(line[j]).toString());
+                Log.i("pattern value",pattern[i][j].toString());
             }
         }
         Log.i("Pattern value", Arrays.deepToString(getPattern()));
@@ -156,19 +138,19 @@ public class Pattern {
     //возвращаем значение рисунка png из drawable
     public static int getRDrawablePNG(cell c) {
         switch (c) {
-            case p2tls: return R.drawable.p2tls;
-            case p2trs: return R.drawable.p2trs;
-            case k2tls: return R.drawable.k2tls;
-            case k2trs: return R.drawable.k2trs;
-            case p3tls: return R.drawable.p3tls;
-            case k3tls: return R.drawable.k3tls;
-            case purl: return R.drawable.purl;
-            case knit: return R.drawable.knit;
-            case yarnover: return R.drawable.yarnover;
-            case ils: return R.drawable.ils;
-            case irs: return R.drawable.irs;
-            case kitb: return R.drawable.kitb;
-            case pitb: return R.drawable.pitb;
+            case P2TLS: return R.drawable.p2tls;
+            case P2TRS: return R.drawable.p2trs;
+            case K2TLS: return R.drawable.k2tls;
+            case K2TRS: return R.drawable.k2trs;
+            case P3TLS: return R.drawable.p3tls;
+            case K3TLS: return R.drawable.k3tls;
+            case PURL: return R.drawable.purl;
+            case KNIT: return R.drawable.knit;
+            case YARNOVER: return R.drawable.yarnover;
+            case ILS: return R.drawable.ils;
+            case IRL: return R.drawable.irs;
+            case KITB: return R.drawable.kitb;
+            case PITB: return R.drawable.pitb;
             default: return -1;
         }
     }
@@ -243,13 +225,13 @@ public class Pattern {
     public void changePatternCell(int x, int y, cell c) {
         history.push(getPattern());
 
-            Log.i("History full value", String.valueOf(history));
+        Log.i("History full value", String.valueOf(history));
 
         String temp2 = "";
         for (int i = 0; i < 5; i++) {
             int j = 0;
-                cell[][] h = (cell[][]) history.peek();
-                Log.i("History h.peek","({" + i + "," + j + "," + h[i][j] + "})");
+            cell[][] h = (cell[][]) history.peek();
+            Log.i("History h.peek","({" + i + "," + j + "," + h[i][j] + "})");
 
         }
         for (cell[][] ccc: history) {

@@ -8,4 +8,6 @@
         <item>Спицами</item>
         <item>Крючком</item>
     </string-array>
+
+    <string name="action_settings">Settings</string>
 </resources>
