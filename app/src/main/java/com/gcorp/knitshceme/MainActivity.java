@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(view.getId())
         {
             case R.id.patternCreateButton:
-                Intent intentCreatePattern = new Intent(MainActivity.this, EditField.class);
+                Intent intentCreatePattern = new Intent(MainActivity.this, EditField_Activity.class);
                 //Отправляем данные котоыре мы собрали на MainActivity
                 //передаем значения как string
                 intentCreatePattern.putExtra("action", "create");
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentCreatePattern);
                 break;
             case R.id.patternOpenButton:
-                Intent intentOpenPattern = new Intent(MainActivity.this, OpenFile.class);
+                Intent intentOpenPattern = new Intent(MainActivity.this, OpenFile_Activity.class);
                 startActivity(intentOpenPattern);
                 break;
 

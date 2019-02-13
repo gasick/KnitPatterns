@@ -113,7 +113,7 @@ public class DrawView extends View {
 
     //Рисуем меню
     private void drawMenu(Canvas canvas) {
-        int yPalletMenuHeight = getHeight() - (pattern.heightSizeOfaPic * 2);
+        int yPalletMenuHeight = getHeight() - (int) (pattern.heightSizeOfaPic/pattern.magnifier * 2);
         int menuTypesLenght = Pattern.menu.values().length;
         for (int i = 0; i < menuTypesLenght; i++) {
             printMenu(i * pattern.heightSizeOfaPic,yPalletMenuHeight,Pattern.menu.values()[i],canvas);
@@ -122,11 +122,11 @@ public class DrawView extends View {
 
     //Собираем палитру из видов петлей.
     public void drawPallet(Canvas canvas) {
-        int yPalletKnitHeight = getHeight() - (int)(pattern.heightSizeOfaPic);
+        int yPalletKnitHeight = getHeight() - (int)(pattern.heightSizeOfaPic/pattern.magnifier);
         int KnitTypesLenght = Pattern.cell.values().length;
         for (int i = 0; i < KnitTypesLenght; i++) {
             if (Pattern.cell.values()[i] != Pattern.cell.EMPTY) {
-                printKnit(i * pattern.widthSizeOfaPic,yPalletKnitHeight,Pattern.cell.values()[i],canvas);
+                printKnit(i * pattern.widthSizeOfaPic/pattern.magnifier,yPalletKnitHeight,Pattern.cell.values()[i],canvas);
             }
         }
     }

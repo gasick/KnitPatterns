@@ -1,21 +1,18 @@
 package com.gcorp.knitshceme;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
-import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
 
 
-public class EditField extends AppCompatActivity {
+public class EditField_Activity extends AppCompatActivity {
 
     Pattern pattern;
     private long startClickTime;
@@ -79,7 +76,7 @@ public class EditField extends AppCompatActivity {
                 if (clickDuration < 200) {
                     pattern.currentX = (int) event.getX();
                     pattern.currentY = (int) event.getY();
-                    TouchActions.ActionOnTouch(pattern, EditField.this);
+                    TouchActions.ActionOnTouch(pattern, EditField_Activity.this);
                     setContentView(new DrawView(this, pattern));
                 }
                 break;

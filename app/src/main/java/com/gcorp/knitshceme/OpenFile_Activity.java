@@ -1,23 +1,17 @@
 package com.gcorp.knitshceme;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.provider.SyncStateContract;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-public class OpenFile extends AppCompatActivity implements View.OnClickListener{
+public class OpenFile_Activity extends AppCompatActivity implements View.OnClickListener{
 
     private static final int PICKFILE_RESULT_CODE = 1;
     String filePath="";
@@ -78,7 +72,7 @@ public class OpenFile extends AppCompatActivity implements View.OnClickListener{
         switch (requestCode) {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == RESULT_OK) {
-                    Intent intentCreatePattern = new Intent(OpenFile.this, EditField.class);
+                    Intent intentCreatePattern = new Intent(OpenFile_Activity.this, EditField_Activity.class);
                     intentCreatePattern.putExtra("action", "open");
                     intentCreatePattern.putExtra("uri", data.getData().getPath());
                     startActivity(intentCreatePattern);

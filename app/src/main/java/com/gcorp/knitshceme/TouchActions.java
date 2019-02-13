@@ -4,7 +4,7 @@ import android.widget.Toast;
 
 //Класс обрабатывающий нажатия
 public class TouchActions {
-    public static void ActionOnTouch(Pattern patt, EditField ef) {
+    public static void ActionOnTouch(Pattern patt, EditField_Activity ef) {
         // Высчитываем то куда было нажание указываем это для switch
         //нужно придумать проверку switch и ее дальнейшее использование.
 

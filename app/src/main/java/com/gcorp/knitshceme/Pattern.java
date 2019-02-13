@@ -118,6 +118,7 @@ public class Pattern {
 
     //Увеличение/уменьшение размера поля
     public void setMagnifier(float newMagnifierValue) {
+        Log.d("Magnifire is", String.valueOf(newMagnifierValue));
         if (newMagnifierValue > 0) {
             magnifier = newMagnifierValue;
             widthSizeOfaPic = (int) (picWidth * magnifier);
